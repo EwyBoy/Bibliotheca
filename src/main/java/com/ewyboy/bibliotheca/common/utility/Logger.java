@@ -1,6 +1,5 @@
 package com.ewyboy.bibliotheca.common.utility;
 
-import com.ewyboy.bibliotheca.common.Reference;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 

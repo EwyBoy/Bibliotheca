@@ -11,8 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
-import static com.ewyboy.bibliotheca.common.Reference.Info.MOD_ID;
-
 /**
  * Created by EwyBoy
  */

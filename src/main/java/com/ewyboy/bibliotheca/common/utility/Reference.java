@@ -1,4 +1,4 @@
-package com.ewyboy.bibliotheca.common;
+package com.ewyboy.bibliotheca.common.utility;
 
 /**
  * Created by EwyBoy

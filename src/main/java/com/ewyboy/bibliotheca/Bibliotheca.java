@@ -1,7 +1,5 @@
 package com.ewyboy.bibliotheca;
 
-import com.ewyboy.bibliotheca.common.block.TestRegister;
-import com.ewyboy.bibliotheca.common.loaders.ItemLoader;
 import com.ewyboy.bibliotheca.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -10,10 +8,10 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import static com.ewyboy.bibliotheca.common.Reference.Info.MOD_ID;
-import static com.ewyboy.bibliotheca.common.Reference.Info.NAME;
-import static com.ewyboy.bibliotheca.common.Reference.Path.CLIENT_PROXY;
-import static com.ewyboy.bibliotheca.common.Reference.Path.COMMON_PROXY;
+import static com.ewyboy.bibliotheca.common.utility.Reference.Info.MOD_ID;
+import static com.ewyboy.bibliotheca.common.utility.Reference.Info.NAME;
+import static com.ewyboy.bibliotheca.common.utility.Reference.Path.CLIENT_PROXY;
+import static com.ewyboy.bibliotheca.common.utility.Reference.Path.COMMON_PROXY;
 
 @Mod(modid = MOD_ID, name = NAME)
 public class Bibliotheca {
@@ -27,7 +25,6 @@ public class Bibliotheca {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
-        ItemLoader.init(MOD_ID, TestRegister.class);
     }
 
     @EventHandler
