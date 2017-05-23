@@ -1,6 +1,7 @@
 package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.common.interfaces.IBlockRenderer;
+import com.ewyboy.bibliotheca.common.utility.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -23,15 +24,15 @@ public class BlockLoader {
      *   Call this from your preInit() in your mod
      *   @param modID the mod id of your mod
      *   @param blockRegister a class where your initialize your block fields
-     *          Example: public static final BlockTest = new BlockTest();
-     *   This @BlockLoader will detect all the fields and register for you
+     *   Example: public static final BlockTest = new BlockTest();
+     *   This @BlockLoader detects all the fields and register them for you
      *   as long as they implements @{@link IBlockRenderer}
      */
     public static void init(String modID, Class blockRegister) {
+        MOD_ID = modID;
         registerBlocks(modID, blockRegister);
         initModels();
         initItemModels();
-        MOD_ID = modID;
     }
 
     /**
@@ -51,7 +52,7 @@ public class BlockLoader {
     }
 
     /**
-     * Grabs the block fields from the blockRegister you provided
+     * Grabs the block fields from the blockRegister class you provided
      */
     private static void registerBlocks(String modID, Class blockRegister) {
         try {
@@ -77,6 +78,7 @@ public class BlockLoader {
         ItemBlock item;
         item = block instanceof IHasCustomItem ? ((IHasCustomItem) block).getItemBlock() : new ItemBlock(block);
         GameRegistry.register((ItemBlock) item.setRegistryName(modID, name).setUnlocalizedName(modID + "." + name));
+        Logger.info("[BLOCK]: " + block.getUnlocalizedName() + " has been registered by Bibliotheca for the mod " + modID);
     }
 
     public interface IHasCustomItem {

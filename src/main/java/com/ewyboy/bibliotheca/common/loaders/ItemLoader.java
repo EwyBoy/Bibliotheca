@@ -1,6 +1,7 @@
 package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.common.interfaces.IItemRenderer;
+import com.ewyboy.bibliotheca.common.utility.Logger;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,14 +23,14 @@ public class ItemLoader {
      *   Call this from your preInit() in your mod
      *   @param modID the mod id of your mod
      *   @param itemRegister a class where your initialize your item fields
-     *          Example: public static final ItemTest = new ItemTest();
-     *   This @ItemLoader will detect all the fields and register for you
+     *   Example: public static final ItemTest = new ItemTest();
+     *   This @ItemLoader detects all the fields and register them for you
      *   as long as they implements @{@link IItemRenderer}
      */
     public static void init(String modID, Class itemRegister) {
+        MOD_ID = modID;
         registerItems(modID, itemRegister);
         initModels();
-        MOD_ID = modID;
     }
 
     /**
@@ -41,7 +42,7 @@ public class ItemLoader {
     }
 
     /**
-     * Grabs the item fields from the itemRegister you provided
+     * Grabs the item fields from the itemRegister class you provided
      */
     private static void registerItems(String modID, Class itemRegister) {
         try {
@@ -65,5 +66,6 @@ public class ItemLoader {
         String itemName = name.toLowerCase(Locale.ENGLISH);
         GameRegistry.register(item.setRegistryName(modID, itemName).setUnlocalizedName(modID + "." + itemName));
         ITEMS.put(item.getRegistryName().toString(), item);
+        Logger.info("[ITEM]: " + item.getUnlocalizedName() + " has been registered by Bibliotheca for the mod " + modID);
     }
 }
