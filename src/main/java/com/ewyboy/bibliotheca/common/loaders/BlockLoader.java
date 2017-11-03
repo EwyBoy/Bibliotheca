@@ -4,6 +4,7 @@ import com.ewyboy.bibliotheca.common.interfaces.IBlockRenderer;
 import com.ewyboy.bibliotheca.common.utility.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,6 +29,7 @@ public class BlockLoader {
      *   This @BlockLoader detects all the fields and register them for you
      *   as long as they implements @{@link IBlockRenderer}
      */
+    @SideOnly(Side.CLIENT)
     public static void init(String modID, Class blockRegister) {
         MOD_ID = modID;
         registerBlocks(modID, blockRegister);
@@ -73,11 +75,11 @@ public class BlockLoader {
      *  Registers the block to the game with the mod id you provided
      */
     private static void registerBlock(String modID, Block block, String name) {
-        GameRegistry.register(block.setRegistryName(modID, name).setUnlocalizedName(modID + "." + name));
+        ForgeRegistries.BLOCKS.register(block.setRegistryName(modID, name).setUnlocalizedName(modID + "." + name));
         BLOCKS.put(block.getRegistryName().toString(), block);
         ItemBlock item;
         item = block instanceof IHasCustomItem ? ((IHasCustomItem) block).getItemBlock() : new ItemBlock(block);
-        GameRegistry.register((ItemBlock) item.setRegistryName(modID, name).setUnlocalizedName(modID + "." + name));
+        ForgeRegistries.ITEMS.register(item.setRegistryName(modID, name).setUnlocalizedName(modID + "." + name));
         Logger.info("[BLOCK]: " + block.getUnlocalizedName() + " has been registered by Bibliotheca for the mod " + modID);
     }
 

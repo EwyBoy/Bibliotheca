@@ -10,17 +10,21 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by EwyBoy
  */
 public class InternalModelLoader {
 
+    @SideOnly(Side.CLIENT)
     public static void init() {
         initBlockModels();
         initItemModels();
     }
 
+    @SideOnly(Side.CLIENT)
     private static void initItemModels() {
         ItemLoader.ITEMS.values().stream().filter(item -> item instanceof IItemRenderer).forEachOrdered(item -> {
             for (int i : ((IItemRenderer) item).modelMetas()) {
@@ -30,6 +34,7 @@ public class InternalModelLoader {
         });
     }
 
+    @SideOnly(Side.CLIENT)
     private static void initBlockModels() {
         BlockLoader.BLOCKS.values().stream().filter(block -> block instanceof IBlockRenderer).forEachOrdered(block -> {
             for (int i : ((IBlockRenderer) block).modelMetas()) {

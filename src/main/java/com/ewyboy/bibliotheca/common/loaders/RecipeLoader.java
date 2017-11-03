@@ -1,7 +1,9 @@
 package com.ewyboy.bibliotheca.common.loaders;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -10,8 +12,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  */
 public class RecipeLoader {
 
-    public static void addRecipe(ItemStack stack, Object ... recipe) {
-        GameRegistry.addRecipe(new ShapedOreRecipe(stack, recipe));
+    public static void addRecipe(ResourceLocation group, ItemStack stack, Object ... recipe) {
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(group, stack, recipe));
     }
 
     public static void addSmelting(ItemStack stackIn, ItemStack stackOut, float xp) {

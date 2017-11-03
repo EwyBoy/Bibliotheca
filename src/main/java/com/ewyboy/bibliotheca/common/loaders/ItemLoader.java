@@ -3,6 +3,7 @@ package com.ewyboy.bibliotheca.common.loaders;
 import com.ewyboy.bibliotheca.common.interfaces.IItemRenderer;
 import com.ewyboy.bibliotheca.common.utility.Logger;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,7 +37,6 @@ public class ItemLoader {
     /**
      * Initializes the item model
      */
-    @SideOnly(Side.CLIENT)
     public static void initModels() {
         ItemLoader.ITEMS.values().stream().filter(item -> item instanceof IItemRenderer).forEachOrdered(item -> ((IItemRenderer) item).registerItemRenderer());
     }
@@ -64,7 +64,7 @@ public class ItemLoader {
      */
     private static void registerItem(String modID, Item item, String name) {
         String itemName = name.toLowerCase(Locale.ENGLISH);
-        GameRegistry.register(item.setRegistryName(modID, itemName).setUnlocalizedName(modID + "." + itemName));
+        ForgeRegistries.ITEMS.register(item.setRegistryName(modID, itemName).setUnlocalizedName(modID + "." + itemName));
         ITEMS.put(item.getRegistryName().toString(), item);
         Logger.info("[ITEM]: " + item.getUnlocalizedName() + " has been registered by Bibliotheca for the mod " + modID);
     }

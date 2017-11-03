@@ -2,6 +2,7 @@ package com.ewyboy.bibliotheca.common.item;
 
 import com.ewyboy.bibliotheca.common.interfaces.IItemRenderer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,7 +13,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class ItemBase extends Item implements IItemRenderer {
 
-    public ItemBase(String name) { }
+    public ItemBase(String name) {}
+
+    public ItemBase(String name, CreativeTabs creativeTab) {
+        setCreativeTab(creativeTab);
+    }
 
     @Override
     public int[] modelMetas() {

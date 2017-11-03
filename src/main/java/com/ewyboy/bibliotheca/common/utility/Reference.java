@@ -8,10 +8,12 @@ public class Reference {
     public static final class Info {
         public static final String MOD_ID = "bibliotheca";
         public static final String NAME = "Bibliotheca";
+        public static final String VERSION = "1.0.2-1.12.2";
     }
 
     public static final class Path {
         public static final String CLIENT_PROXY = "com.ewyboy.bibliotheca.proxy.ClientProxy";
         public static final String COMMON_PROXY = "com.ewyboy.bibliotheca.proxy.CommonProxy";
+        public static final String WAILA_PATH = "com.ewyboy.cultivatedtech.common.compatibilities.waila.WailaCompatibility.load";
     }
 }

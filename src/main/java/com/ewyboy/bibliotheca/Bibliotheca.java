@@ -10,10 +10,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import static com.ewyboy.bibliotheca.common.utility.Reference.Info.MOD_ID;
 import static com.ewyboy.bibliotheca.common.utility.Reference.Info.NAME;
+import static com.ewyboy.bibliotheca.common.utility.Reference.Info.VERSION;
 import static com.ewyboy.bibliotheca.common.utility.Reference.Path.CLIENT_PROXY;
 import static com.ewyboy.bibliotheca.common.utility.Reference.Path.COMMON_PROXY;
 
-@Mod(modid = MOD_ID, name = NAME, version = "1.0.0")
+@Mod(modid = MOD_ID, name = NAME, version = VERSION)
 public class Bibliotheca {
 
     @Mod.Instance(MOD_ID)
