@@ -18,6 +18,11 @@ public class BlockBaseModeledFacing extends BlockBaseModeled {
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
+    public BlockBaseModeledFacing(Material material) {
+        super(material);
+        setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+    }
+
     public BlockBaseModeledFacing(Material material, CreativeTabs creativeTab) {
         super(material, creativeTab);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));

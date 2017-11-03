@@ -18,6 +18,10 @@ import javax.annotation.Nonnull;
  **/
 public class BlockBaseModeled extends BlockBase {
 
+    public BlockBaseModeled(Material material) {
+        super(material);
+    }
+
     public BlockBaseModeled(Material material, CreativeTabs creativeTab) {
         super(material, creativeTab);
     }

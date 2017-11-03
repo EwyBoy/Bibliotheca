@@ -18,6 +18,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class BlockBase extends Block implements IBlockRenderer {
 
+    public BlockBase(Material material) {
+        super(material);
+    }
+
     public BlockBase(Material material, CreativeTabs creativeTab) {
         super(material);
         setCreativeTab(creativeTab);

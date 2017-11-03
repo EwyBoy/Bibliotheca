@@ -16,7 +16,7 @@ import net.minecraftforge.client.model.ModelLoader;
  */
 public class InternalModelLoader {
 
-    public static final void init() {
+    public static void init() {
         initBlockModels();
         initItemModels();
     }

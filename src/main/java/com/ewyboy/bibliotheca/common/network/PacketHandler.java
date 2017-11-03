@@ -2,6 +2,7 @@ package com.ewyboy.bibliotheca.common.network;
 
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by EwyBoy
@@ -17,11 +18,8 @@ public class PacketHandler {
         return packetID++;
     }
 
-    public static void registerMessages(String channelName) {
+    public static void registerMessages(String channelName, Class handler, Class packet, Side side) {
         INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
-        registerMessages();
+        INSTANCE.registerMessage(handler, packet, nextID(), side);
     }
-
-    //INSTANCE.registerMessage(Class.Handler.class, Class.class, nextID(), Side.CLIENT/SERVER);
-    private static void registerMessages() {}
 }

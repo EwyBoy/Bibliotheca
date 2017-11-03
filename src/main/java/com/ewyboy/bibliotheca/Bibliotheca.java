@@ -13,7 +13,7 @@ import static com.ewyboy.bibliotheca.common.utility.Reference.Info.NAME;
 import static com.ewyboy.bibliotheca.common.utility.Reference.Path.CLIENT_PROXY;
 import static com.ewyboy.bibliotheca.common.utility.Reference.Path.COMMON_PROXY;
 
-@Mod(modid = MOD_ID, name = NAME)
+@Mod(modid = MOD_ID, name = NAME, version = "1.0.0")
 public class Bibliotheca {
 
     @Mod.Instance(MOD_ID)
