@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ParticleHelper {
 
     @SideOnly(Side.CLIENT)
-    private static void spawnParticle(Particle particle) {
+    public static void spawnParticle(Particle particle) {
         Minecraft.getMinecraft().effectRenderer.addEffect(particle);
     }
 

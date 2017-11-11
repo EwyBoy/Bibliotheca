@@ -29,7 +29,6 @@ public class BlockLoader {
      *   This @BlockLoader detects all the fields and register them for you
      *   as long as they implements @{@link IBlockRenderer}
      */
-    @SideOnly(Side.CLIENT)
     public static void init(String modID, Class blockRegister) {
         MOD_ID = modID;
         registerBlocks(modID, blockRegister);
@@ -40,7 +39,6 @@ public class BlockLoader {
     /**
      * Initializes the block model
      */
-    @SideOnly(Side.CLIENT)
     public static void initModels() {
         BLOCKS.values().stream().filter(block -> block instanceof IBlockRenderer).forEachOrdered(block -> ((IBlockRenderer) block).registerBlockRenderer());
     }
@@ -48,7 +46,6 @@ public class BlockLoader {
     /**
      * Initializes the item-block model
      */
-    @SideOnly(Side.CLIENT)
     public static void initItemModels() {
         BLOCKS.values().stream().filter(block -> block instanceof IBlockRenderer).forEachOrdered(block -> ((IBlockRenderer) block).registerBlockItemRenderer());
     }
