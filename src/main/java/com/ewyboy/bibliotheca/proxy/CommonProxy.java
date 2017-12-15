@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.FMLEventChannel;
 import net.minecraftforge.fml.relauncher.Side;
 
-public abstract class CommonProxy {
+public class CommonProxy {
 
     public Side getSide(){return Side.SERVER;}
 

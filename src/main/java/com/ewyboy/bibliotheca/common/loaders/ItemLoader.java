@@ -3,6 +3,7 @@ package com.ewyboy.bibliotheca.common.loaders;
 import com.ewyboy.bibliotheca.common.interfaces.IItemRenderer;
 import com.ewyboy.bibliotheca.common.utility.Logger;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,14 +32,6 @@ public class ItemLoader {
     public static void init(String modID, Class itemRegister) {
         MOD_ID = modID;
         registerItems(modID, itemRegister);
-        initModels();
-    }
-
-    /**
-     * Initializes the item model
-     */
-    public static void initModels() {
-        ItemLoader.ITEMS.values().stream().filter(item -> item instanceof IItemRenderer).forEachOrdered(item -> ((IItemRenderer) item).registerItemRenderer());
     }
 
     /**
@@ -52,6 +45,9 @@ public class ItemLoader {
                     Item item = (Item) obj;
                     String name = "item" + field.getName().toLowerCase(Locale.ENGLISH);
                     registerItem(modID, item, name);
+                    if (item instanceof IItemRenderer && FMLCommonHandler.instance().getEffectiveSide().isClient()) {
+                        ((IItemRenderer) item).registerItemRenderer();
+                    }
                 }
             }
         } catch (IllegalAccessException e) {

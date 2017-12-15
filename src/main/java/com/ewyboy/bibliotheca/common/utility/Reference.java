@@ -8,7 +8,7 @@ public class Reference {
     public static final class Info {
         public static final String MOD_ID = "bibliotheca";
         public static final String NAME = "Bibliotheca";
-        public static final String VERSION = "1.0.3-1.12.2";
+        public static final String VERSION = "1.1.0-1.11.2";
     }
 
     public static final class Path {

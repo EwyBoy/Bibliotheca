@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.0-1.11.2"
+version = "1.1.0-1.11.2"
 group = "com.ewyboy.bibliotheca"
 archivesBaseName = "Bibliotheca"
 
@@ -25,7 +25,15 @@ minecraft {
     //makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
-dependencies {}
+repositories {	
+	maven {
+		url "http://tehnut.info/maven"
+	}
+}
+
+dependencies {
+    deobfCompile "mcp.mobius.waila:Hwyla:1.8.22-B37_1.11"
+}
 
 processResources {
     inputs.property "version", project.version
