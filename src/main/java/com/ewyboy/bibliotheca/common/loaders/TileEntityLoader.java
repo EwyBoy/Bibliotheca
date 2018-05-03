@@ -49,6 +49,6 @@ public class TileEntityLoader {
     private static void registerTileEntity(TileEntity tileEntity, String name) {
         GameRegistry.registerTileEntity(tileEntity.getClass(), name);
         TILE_ENTITIES.put(tileEntity.toString(), tileEntity);
-        Logger.info("[TILE ENTITY]: " + tileEntity.toString() + " has been registered by Bibliotheca");
+        Logger.info("[TILE ENTITY]: " + tileEntity.getClass().getSimpleName() + " has been registered by Bibliotheca");
     }
 }

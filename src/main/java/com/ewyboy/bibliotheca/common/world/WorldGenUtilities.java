@@ -33,7 +33,7 @@ public class WorldGenUtilities {
         return y;
     }
 
-    private void generate(WorldGenerator worldGenerator, World world, Random random, int blockX, int blockZ, int minimumSpawnHeight, int randomMin, int randomMax) {
+    public static void generate(WorldGenerator worldGenerator, World world, Random random, int blockX, int blockZ, int minimumSpawnHeight, int randomMin, int randomMax) {
         int numberOfStuff = randomMin + random.nextInt(randomMax - randomMin);
         for (int i = 0; i < numberOfStuff; i++) {
             int randX = blockX + random.nextInt(16);
@@ -42,7 +42,7 @@ public class WorldGenUtilities {
         }
     }
 
-    private void generateUnderGround(
+    public static void generateUnderGround(
             Block block, World world, Random random,
             int blockX, int blockZ,
             int minSpawnHeight, int maxSpawnHeight,

@@ -1,10 +1,10 @@
 package com.ewyboy.bibliotheca.client.rendering;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -74,7 +74,7 @@ public class FluidRenderer {
 
         final Minecraft mc = Minecraft.getMinecraft();
         final Tessellator tessellator = Tessellator.getInstance();
-        final VertexBuffer buffer = tessellator.getBuffer();
+        final BufferBuilder buffer = tessellator.getBuffer();
         final int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
@@ -110,7 +110,7 @@ public class FluidRenderer {
      * @param color      The color multiplier to apply.
      * @param brightness The brightness of the cube.
      */
-    public static void addTexturedQuad(VertexBuffer buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int color, int brightness) {
+    public static void addTexturedQuad(BufferBuilder buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int color, int brightness) {
         if (sprite == null) return;
         final int firstLightValue = brightness >> 0x10 & 0xFFFF;
         final int secondLightValue = brightness & 0xFFFF;
@@ -141,7 +141,7 @@ public class FluidRenderer {
      * @param light1 The first light map value.
      * @param light2 The second light map value.
      */
-    public static void addTextureQuad(VertexBuffer buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int red, int green, int blue, int alpha, int light1, int light2) {
+    public static void addTextureQuad(BufferBuilder buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int red, int green, int blue, int alpha, int light1, int light2) {
 
         double minU;
         double maxU;
@@ -261,7 +261,6 @@ public class FluidRenderer {
      * @param z The Z position to render at.
      */
     public static void setupRenderState(double x, double y, double z) {
-
         GlStateManager.pushMatrix();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.enableBlend();

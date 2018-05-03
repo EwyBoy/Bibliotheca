@@ -5,9 +5,6 @@ import com.ewyboy.bibliotheca.common.utility.Logger;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -22,16 +19,16 @@ public class ItemLoader {
     public static final HashMap<String, Item> ITEMS = new HashMap<>();
 
     /**
-     *   Call this from your preInit() in your mod
-     *   @param modID the mod id of your mod
-     *   @param itemRegister a class where your initialize your item fields
+     *   Initialize this in preInit() in your mod
+     *   @param modid the mod id for your mod
+     *   @param itemRegister the class where your initialize your item fields
      *   Example: public static final ItemTest = new ItemTest();
      *   This @ItemLoader detects all the fields and register them for you
      *   as long as they implements @{@link IItemRenderer}
      */
-    public static void init(String modID, Class itemRegister) {
-        MOD_ID = modID;
-        registerItems(modID, itemRegister);
+    public static void init(String modid, Class itemRegister) {
+        MOD_ID = modid;
+        registerItems(modid, itemRegister);
     }
 
     /**
@@ -58,10 +55,10 @@ public class ItemLoader {
     /**
      *  Registers the item to the game with the mod id you provided
      */
-    private static void registerItem(String modID, Item item, String name) {
+    public static void registerItem(String modID, Item item, String name) {
         String itemName = name.toLowerCase(Locale.ENGLISH);
         ForgeRegistries.ITEMS.register(item.setRegistryName(modID, itemName).setUnlocalizedName(modID + "." + itemName));
         ITEMS.put(item.getRegistryName().toString(), item);
-        Logger.info("[ITEM]: " + item.getUnlocalizedName() + " has been registered by Bibliotheca for the mod " + modID);
+        Logger.info("[ITEM]: " + name + " has been registered by Bibliotheca for the mod " + modID);
     }
 }

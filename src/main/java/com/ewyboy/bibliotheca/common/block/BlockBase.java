@@ -25,6 +25,7 @@ public class BlockBase extends Block implements IBlockRenderer {
     public BlockBase(Material material, CreativeTabs creativeTab) {
         super(material);
         setCreativeTab(creativeTab);
+        setHardness(1.0f);
     }
 
     @Override
