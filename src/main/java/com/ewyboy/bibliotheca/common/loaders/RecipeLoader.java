@@ -17,6 +17,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.GameData;
 
+import java.util.stream.IntStream;
+
 /**
  *
  * Src code written by Modmuss50 for Reborn Core
@@ -111,6 +113,41 @@ public class RecipeLoader {
             }
         }
         return list;
+    }
+
+    /**
+     * Registers a two by two recipe of the input stack
+     */
+    public static void addPlainTwoByTwoRecipe(ItemStack stackIn, ItemStack stackOut, int amountOut) {
+        addShapedRecipe(new ItemStack(stackOut.getItem(), amountOut), "xx","xx", 'x', stackIn);
+    }
+
+    /**
+     * Registers a three by three recipe of the input stack
+     */
+    public static void addPlainThreeByThreeRecipe(ItemStack stackIn, ItemStack stackOut, int amountOut) {
+        addShapedRecipe(new ItemStack(stackOut.getItem(), amountOut), "xxx","xxx","xxx", 'x', stackIn);
+    }
+
+    /**
+     * Registers a three by three recipe with the one entry in the middle
+     */
+    public static void addThreeByThreeWithCenterRecipe(ItemStack stackInAround, ItemStack stackInCenter,  ItemStack stackOut, int amountOut) {
+        addShapedRecipe(new ItemStack(stackOut.getItem(), amountOut), "xxx","xox","xxx", 'x', stackInAround, 'o', stackInCenter);
+    }
+
+    /**
+     * Registers a scaling recipe where the input amount scales with the output amount
+     */
+    public static void addScalingRecipe(ItemStack stackIn, ItemStack stackOut) {
+        IntStream.rangeClosed(1, 9).forEachOrdered(i -> addShapelessOreRecipe(new ItemStack(stackIn.getItem(), i), new ItemStack(stackOut.getItem()), i));
+    }
+
+    /**
+     * Same as the one above but you can have a second component, LUL
+     */
+    public static void addMultiScalingRecipe(ItemStack stackInOne, ItemStack stackInTwo, ItemStack stackOut) {
+        IntStream.rangeClosed(1, 8).forEachOrdered(i -> addShapelessOreRecipe(new ItemStack(stackInOne.getItem(), i), stackInTwo, new ItemStack(stackOut.getItem()), i));
     }
 
     public static void addSmelting(Block input, ItemStack output, float xp) {

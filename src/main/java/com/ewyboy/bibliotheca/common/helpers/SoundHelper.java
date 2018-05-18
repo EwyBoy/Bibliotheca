@@ -19,13 +19,12 @@ public class SoundHelper {
 
     public static void broadcastServerSidedSoundToAllPlayerNearby(World world, BlockPos pos, SoundEvent sound, SoundCategory soundCategory, int radius) {
         FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendToAllNearExcept(null,
-                (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), radius, world.provider.getDimension(),
-                new SPacketSoundEffect(sound, soundCategory,
-                        (double) pos.getX(), (double)pos.getY(), (double)pos.getZ(),
-                        1.0f, (float) MathHelper.nextDouble(
-                        random, -1.0d, 1.0d
-                    )
+            (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), radius, world.provider.getDimension(),
+            new SPacketSoundEffect(sound, soundCategory, (double) pos.getX(), (double)pos.getY(), (double)pos.getZ(),
+                    1.0f, (float) MathHelper.nextDouble(
+                    random, -1.0d, 1.0d
                 )
+            )
         );
     }
 }
