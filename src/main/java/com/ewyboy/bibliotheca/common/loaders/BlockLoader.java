@@ -37,7 +37,8 @@ public class BlockLoader {
      */
     private static void registerBlocks(String modID, Class blockRegister) {
         try {
-            for (Field field : blockRegister.getDeclaredFields()) {
+            Field[] declaredFields = blockRegister.getDeclaredFields();
+            for (Field field : declaredFields) {
                 Object obj = field.get(null);
                 if (obj instanceof Block) {
                     Block block = (Block) obj;
