@@ -1,10 +1,7 @@
 package com.ewyboy.bibliotheca.common.network;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 /**
@@ -30,12 +27,4 @@ public class PacketBase implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {}
 
-    public static class PacketBaseHandler implements IMessageHandler<PacketBase, IMessage> {
-        @Override
-        public PacketBase onMessage(PacketBase message, MessageContext ctx) {
-            FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(this::handle);
-            return null;
-        }
-        private void handle() {}
-    }
 }

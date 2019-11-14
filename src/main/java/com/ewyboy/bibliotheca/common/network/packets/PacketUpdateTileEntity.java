@@ -1,5 +1,6 @@
-package com.ewyboy.bibliotheca.common.network;
+package com.ewyboy.bibliotheca.common.network.packets;
 
+import com.ewyboy.bibliotheca.common.network.PacketBase;
 import com.ewyboy.bibliotheca.common.tile.TileEntityBase;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;

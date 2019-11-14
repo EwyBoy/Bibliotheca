@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class CommonProxy {
+public class CommonProxy implements IModProxy {
 
     public Side getSide(){return Side.SERVER;}
 

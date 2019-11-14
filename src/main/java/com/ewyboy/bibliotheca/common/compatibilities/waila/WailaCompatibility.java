@@ -69,8 +69,9 @@ public class WailaCompatibility implements IWailaDataProvider {
     @Nonnull
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         Block block = accessor.getBlock();
-        if (block instanceof IWailaInformationUser) return ((IWailaInformationUser) block).getWailaBody(itemStack, currenttip, accessor, config);
-
+        if (block instanceof IWailaInformationUser) {
+            return ((IWailaInformationUser) block).getWailaBody(itemStack, currenttip, accessor, config);
+        }
         return currenttip;
     }
 

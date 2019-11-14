@@ -19,7 +19,7 @@ public class TileEntityLoader {
      *   Call this from your preInit() in your mod after you have registered blocks
      *   @param tileEntityRegister a class where your initialize your block fields
      *   Example: public static final TileEntityTest = new TileEntityTest();
-     *   This @TileEntityLoader detects all the fields and register them for you
+     *   This @{@link TileEntityLoader detects all the fields and register them for you
      */
     public static void init(Class tileEntityRegister) {
         registerTileEntity(tileEntityRegister);

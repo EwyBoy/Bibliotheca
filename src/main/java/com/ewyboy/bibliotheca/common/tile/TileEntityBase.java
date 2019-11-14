@@ -1,7 +1,7 @@
 package com.ewyboy.bibliotheca.common.tile;
 
 import com.ewyboy.bibliotheca.common.loaders.PacketLoader;
-import com.ewyboy.bibliotheca.common.network.PacketUpdateTileEntity;
+import com.ewyboy.bibliotheca.common.network.packets.PacketUpdateTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

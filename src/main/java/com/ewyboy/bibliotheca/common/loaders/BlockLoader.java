@@ -24,7 +24,7 @@ public class BlockLoader {
      *   @param modID the mod id for your mod
      *   @param blockRegister the class where your initialize your block fields
      *   Example: public static final BlockTest = new BlockTest();
-     *   This @BlockLoader detects all the fields and register them for you
+     *   This @{@link BlockLoader detects all the fields and register them for you
      *   as long as they implements @{@link IBlockRenderer}
      */
     public static void init(String modID, Class blockRegister) {

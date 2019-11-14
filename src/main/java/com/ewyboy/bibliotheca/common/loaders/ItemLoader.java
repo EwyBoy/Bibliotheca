@@ -23,7 +23,7 @@ public class ItemLoader {
      *   @param modid the mod id for your mod
      *   @param itemRegister the class where your initialize your item fields
      *   Example: public static final ItemTest = new ItemTest();
-     *   This @ItemLoader detects all the fields and register them for you
+     *   This @{@link ItemLoader detects all the fields and register them for you
      *   as long as they implements @{@link IItemRenderer}
      */
     public static void init(String modid, Class itemRegister) {
