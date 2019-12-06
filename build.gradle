@@ -9,10 +9,15 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
 
+<<<<<<< HEAD
 version = "1.4.0-1.12.2"
+=======
+version = "${mc_version}-${mod_version}"
+>>>>>>> master
 group = "com.ewyboy.bibliotheca"
-archivesBaseName = "bibliotheca"
+archivesBaseName = "Bibliotheca"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -20,17 +25,28 @@ compileJava {
 }
 
 minecraft {
+<<<<<<< HEAD
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
     mappings = "snapshot_20171003"
+=======
+	version = "${mc_version}-${forge_version}"
+	runDir = "run"
+	mappings = "${mcp_mappings}"
+	makeObfSourceJar = false
+>>>>>>> master
 }
 
 repositories {  
-    maven {url "http://tehnut.info/maven"}
+    maven { url "http://tehnut.info/maven" }
 }
 
 dependencies {
+<<<<<<< HEAD
     deobfCompile "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
+=======
+    compile "mcp.mobius.waila:Hwyla:${waila_version}"
+>>>>>>> master
 }
 
 processResources {
@@ -44,5 +60,63 @@ processResources {
         
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+jar {
+    classifier = 'universal'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+task srcJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives deobfJar
+    archives srcJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            if (project.hasProperty("local_maven")) {
+                repository(url: "file://${local_maven}")
+                pom {
+                    groupId = project.group
+                    artifactId = project.archivesBaseName
+                    project {
+                        name project.archivesBaseName
+                        packaging 'jar'
+                        description 'Bibliotheca'
+                        url 'https://github.com/EwyBoy/Bibliotheca'
+
+                        scm {
+                            url 'https://github.com/EwyBoy/Bibliotheca'
+                            connection 'scm:git:git://github.com/EwyBoy/Bibliotheca.git'
+                            developerConnection 'scm:git:git@github.com:EwyBoy/Bibliotheca.git'
+                        }
+
+                        issueManagement {
+                            system 'github'
+                            url 'https://github.com/EwyBoy/Bibliotheca/issues'
+                        }
+
+                        developers {
+                            developer {
+                                id 'EwyBoy'
+                                name 'EwyBoy'
+                                roles { role 'developer' }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
