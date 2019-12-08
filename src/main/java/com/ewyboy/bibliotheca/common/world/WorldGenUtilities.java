@@ -1,15 +1,9 @@
 package com.ewyboy.bibliotheca.common.world;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
-import java.util.Random;
-
-import static net.minecraft.init.Blocks.DIRT;
-import static net.minecraft.init.Blocks.GRASS;
 
 public class WorldGenUtilities {
 
@@ -28,35 +22,9 @@ public class WorldGenUtilities {
         boolean foundGround = false;
         while(!foundGround && y-- >= 0) {
             Block blockAt = world.getBlockState(new BlockPos(x,y,z)).getBlock();
-            foundGround = blockAt.equals(DIRT) || blockAt.equals(GRASS);
+            foundGround = blockAt.equals(Blocks.DIRT) || blockAt.equals(Blocks.GRASS_BLOCK);
         }
         return y;
     }
 
-    public static void generate(WorldGenerator worldGenerator, World world, Random random, int blockX, int blockZ, int minimumSpawnHeight, int randomMin, int randomMax) {
-        int numberOfStuff = randomMin + random.nextInt(randomMax - randomMin);
-        for (int i = 0; i < numberOfStuff; i++) {
-            int randX = blockX + random.nextInt(16);
-            int randZ = blockZ + random.nextInt(16);
-            worldGenerator.generate(world, random, new BlockPos(randX, minimumSpawnHeight ,randZ));
-        }
-    }
-
-    public static void generateUnderGround(
-            Block block, World world, Random random,
-            int blockX, int blockZ,
-            int minSpawnHeight, int maxSpawnHeight,
-            int minSpawnRate, int maxSpawnRate,
-            int minVeinSize, int maxVeinSize
-    ) {
-        int spawnRate = minSpawnRate + random.nextInt(maxSpawnRate - minSpawnRate);
-        int veinSize = minVeinSize + random.nextInt(maxVeinSize - minVeinSize);
-        for (int i = 0; i < spawnRate; i++) {
-            int randX = blockX + random.nextInt(16);
-            int randZ = blockZ + random.nextInt(16);
-            int randY = minSpawnHeight + random.nextInt(maxSpawnHeight - minSpawnHeight);
-
-            new WorldGenMinable(block.getDefaultState(), veinSize).generate(world, random, new BlockPos(randX, randY, randZ));
-        }
-    }
 }

@@ -2,25 +2,22 @@ package com.ewyboy.bibliotheca.common.helpers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-/**
- * Created by EwyBoy
- */
 public class ParticleHelper {
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static void spawnParticle(Particle particle) {
-        Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+        Minecraft.getInstance().particles.addEffect(particle);
     }
 
-    @SideOnly(Side.CLIENT)
-    public static void spawnParticle(World world, double x, double y, double z, EnumParticleTypes particle, double velocityX, double velocityY, double velocityZ) {
-        world.spawnParticle(particle, x + 0.5, y, z + 0.5, velocityX, velocityY, velocityZ);
+    @OnlyIn(Dist.CLIENT)
+    public static void spawnParticle(World world, double x, double y, double z, ParticleTypes particle, double velocityX, double velocityY, double velocityZ) {
+        world.addParticle((IParticleData) particle, x + 0.5, y, z + 0.5, velocityX, velocityY, velocityZ);
     }
+
 }

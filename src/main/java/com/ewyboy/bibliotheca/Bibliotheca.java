@@ -1,36 +1,29 @@
 package com.ewyboy.bibliotheca;
 
+import com.ewyboy.bibliotheca.proxy.ClientProxy;
 import com.ewyboy.bibliotheca.proxy.CommonProxy;
+import com.ewyboy.bibliotheca.proxy.IModProxy;
+import com.ewyboy.bibliotheca.util.Reference;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import static com.ewyboy.bibliotheca.common.utility.Reference.Info.*;
-import static com.ewyboy.bibliotheca.common.utility.Reference.Path.*;
-
-@Mod(modid = MOD_ID, name = NAME, version = VERSION)
+@Mod(Reference.ModInfo.MOD_ID)
 public class Bibliotheca {
 
-    @Mod.Instance(MOD_ID)
-    public static Bibliotheca INSTANCE;
+    private static final IModProxy proxy = DistExecutor.runForDist(
+        () -> ClientProxy :: new,
+        () -> CommonProxy :: new
+    );
 
-    @SidedProxy(clientSide = CLIENT_PROXY, serverSide = COMMON_PROXY)
-    public static CommonProxy proxy;
-
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
+    public Bibliotheca() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this :: setup);
+        proxy.construct();
     }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        proxy.init(event);
+    private void setup(final FMLCommonSetupEvent event) {
+        proxy.setup();
     }
 
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
-    }
 }

@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+issueTrackerURL="https://github.com/EwyBoy/bibliotheca/issues"
+
+[[mods]]
+modId="bibliotheca"
+displayName="Bibliotheca"
+version="${file.jarVersion}"
+authors="Ewy"
+credits="Credits to LuHiGi for helping me with the porting to 1.14"
+description='''
+Open-source library mod to make my life a bit easier cause I am lazy.
+'''
+
+[[dependencies.bibliotheca]]
+    modId="forge"
+    mandatory=true
+    versionRange="[28.1.61,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.bibliotheca]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"

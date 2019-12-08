@@ -18,10 +18,10 @@ public class GuiHelper {
     public static final ResourceLocation maskTexture = new ResourceLocation("bibliotheca", "textures/gui/mask.png");
     public static final ResourceLocation buttonTexture = new ResourceLocation("bibliotheca", "textures/gui/button.png");
 
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft MINECRAFT = Minecraft.getInstance();
 
     public static void renderSlots(int x, int y) {
-        mc.renderEngine.bindTexture(slotTexture);
+        MINECRAFT.textureManager.bindTexture(slotTexture);
 
         int realSize = 18;
         double u = 1;
@@ -42,7 +42,7 @@ public class GuiHelper {
     }
 
     public static void renderBackground(int x, int y, int width, int height, ResourceLocation texture) {
-        mc.renderEngine.bindTexture(texture);
+        MINECRAFT.textureManager.bindTexture(texture);
 
         int realWidth = (width) + 14;
         int realHeight = 15 + (height);
