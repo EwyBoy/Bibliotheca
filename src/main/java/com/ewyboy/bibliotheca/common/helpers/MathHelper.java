@@ -2,39 +2,36 @@ package com.ewyboy.bibliotheca.common.helpers;
 
 import java.util.Random;
 
-/**
- * Created by EwyBoy
- */
 public class MathHelper {
 
-    public static Random random = new Random();
+    private static Random random = new Random();
 
     /**
      * Returns a random integer between min (inclusive) and max (inclusive)
      */
     public static int getRandomIntegerInRange(int min, int max) {
-        return (random.nextInt() * (max - min)) + min;
+        return (random.nextInt() * (max - min) + min);
     }
 
     /**
      * Returns a random double between min (inclusive) and max (inclusive)
      */
     public static double getRandomDoubleInRange(double min, double max) {
-        return (random.nextDouble() * (max - min)) + min;
+        return (random.nextDouble() * (max - min) + min);
     }
 
     /**
      * Returns a random float between min (inclusive) and max (inclusive)
      */
     public static float getRandomFloatInRange(float min, float max) {
-        return (random.nextFloat() * (max - min)) + min;
+        return (random.nextFloat() * (max - min) + min);
     }
 
     /**
      * Returns a random long between min (inclusive) and max (inclusive)
      */
     public static long getRandomLongInRange(long min, long max) {
-        return (random.nextLong() * (max - min)) + min;
+        return (random.nextLong() * (max - min) + min);
     }
 
     /**
@@ -45,4 +42,5 @@ public class MathHelper {
     public static int getCyclingNumberInRange(int count, int max) {
         return ((-1) * Math.abs(count - max) + max);
     }
+
 }

@@ -1,122 +1,106 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
+
+version = "${MC_VERSION}-${VERSION}"
+group = "com.ewyboy.${MODID}"
+archivesBaseName = MODNAME
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+
+    apply plugin: 'idea'
+    mappings channel: MCP_CHANNEL, version: MCP_MAPPINGS
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            ideaModule "${project.name}.main"
+
+            mods {
+                bibliotheca {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            ideaModule "${project.name}.main"
+
+            mods {
+                bibliotheca {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            args '--mod', 'bibliotheca', '--all', '--output', file('src/generated/resources/')
+            ideaModule "${project.name}.main"
+
+            mods {
+                bibliotheca {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'maven'
-
-<<<<<<< HEAD
-version = "1.4.0-1.12.2"
-=======
-version = "${mc_version}-${mod_version}"
->>>>>>> master
-group = "com.ewyboy.bibliotheca"
-archivesBaseName = "Bibliotheca"
-
-sourceCompatibility = targetCompatibility = '1.8'
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
-
-minecraft {
-<<<<<<< HEAD
-    version = "1.12.2-14.23.5.2847"
-    runDir = "run"
-    mappings = "snapshot_20171003"
-=======
-	version = "${mc_version}-${forge_version}"
-	runDir = "run"
-	mappings = "${mcp_mappings}"
-	makeObfSourceJar = false
->>>>>>> master
-}
-
-repositories {  
-    maven { url "http://tehnut.info/maven" }
+repositories {
+    mavenLocal()
+    maven {
+        // Hwyla
+        name "tehnut"
+        url "https://tehnut.info/maven"
+    }
 }
 
 dependencies {
-<<<<<<< HEAD
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
-=======
-    compile "mcp.mobius.waila:Hwyla:${waila_version}"
->>>>>>> master
-}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+    minecraft "net.minecraftforge:forge:${MC_VERSION}-${FORGE_VERSION}"
+    compile fg.deobf('mcp.mobius.waila:Hwyla:1.10.6-B67_1.14.4')
 }
 
 jar {
-    classifier = 'universal'
+    manifest {
+        attributes([
+            "Specification-Title": MODNAME,
+            "Specification-Vendor": AUTHOR,
+            "Specification-Version": "1",
+            "Implementation-Title": project.name,
+            "Implementation-Version": VERSION,
+            "Implementation-Vendor" : AUTHOR,
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
 }
 
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
 }
-
-task srcJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives deobfJar
-    archives srcJar
-}
-
-uploadArchives {
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact reobfArtifact
+        }
+    }
     repositories {
-        mavenDeployer {
-            if (project.hasProperty("local_maven")) {
-                repository(url: "file://${local_maven}")
-                pom {
-                    groupId = project.group
-                    artifactId = project.archivesBaseName
-                    project {
-                        name project.archivesBaseName
-                        packaging 'jar'
-                        description 'Bibliotheca'
-                        url 'https://github.com/EwyBoy/Bibliotheca'
-
-                        scm {
-                            url 'https://github.com/EwyBoy/Bibliotheca'
-                            connection 'scm:git:git://github.com/EwyBoy/Bibliotheca.git'
-                            developerConnection 'scm:git:git@github.com:EwyBoy/Bibliotheca.git'
-                        }
-
-                        issueManagement {
-                            system 'github'
-                            url 'https://github.com/EwyBoy/Bibliotheca/issues'
-                        }
-
-                        developers {
-                            developer {
-                                id 'EwyBoy'
-                                name 'EwyBoy'
-                                roles { role 'developer' }
-                            }
-                        }
-                    }
-                }
-            }
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
 }
