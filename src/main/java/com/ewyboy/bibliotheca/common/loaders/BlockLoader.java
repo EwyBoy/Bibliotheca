@@ -17,8 +17,7 @@ public class BlockLoader extends ContentLoader<Block> {
 
     @Override
     protected void onRegister(String name, Block block) {
-        getRegister().register(name, () -> block);
-        getContentMap().put(block.getRegistryName(), block);
+        getContentMap().put(block.getRegistryName(), getRegister().register(name, () -> block));
         ModLogger.info("[BLOCK]: {} has been registered by Bibliotheca for {}", name, activeModName());
 
         // Handle Block Items

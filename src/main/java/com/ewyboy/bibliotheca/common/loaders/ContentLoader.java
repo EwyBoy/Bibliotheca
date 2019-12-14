@@ -15,6 +15,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>> {
 
@@ -28,9 +29,9 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
 
     private final IForgeRegistry<ContentType> registry;
     private final Map<String, DeferredRegister<ContentType>> REGISTERS = Maps.newHashMap();
-    private final Map<ResourceLocation, ContentType> CONTENT_MAP = Maps.newHashMap();
+    private final Map<ResourceLocation, Supplier<ContentType>> CONTENT_MAP = Maps.newHashMap();
 
-    public Map<ResourceLocation, ContentType> getContentMap() {
+    public Map<ResourceLocation, Supplier<ContentType>> getContentMap() {
         return CONTENT_MAP;
     }
 
