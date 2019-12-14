@@ -4,14 +4,11 @@ import com.ewyboy.bibliotheca.util.ModLogger;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -19,22 +16,14 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>> {
+public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>> {
 
     public static ItemGroup CONTENT_GROUP;
 
     public static final HashMap<String, Block> BLOCK_LIST = new HashMap<>();
 
-    public static final ContentLoader<Block> BLOCKS = new ContentLoader<>(ForgeRegistries.BLOCKS);
-    public static final ContentLoader<Item> ITEMS = new ContentLoader<>(ForgeRegistries.ITEMS);
-    public static final ContentLoader<TileEntityType<?>> TILES = new ContentLoader<>(ForgeRegistries.TILE_ENTITIES);
-
-    public static void init(String modID, ItemGroup contentGroup, Class blockRegister, Class itemRegister, Class tileRegister) {
-        ModLogger.info("Registering content for " + modID);
-        CONTENT_GROUP = contentGroup;
-        BLOCKS.register(blockRegister);
-        ITEMS.register(itemRegister);
-        TILES.register(tileRegister);
+    ContentLoader(IForgeRegistry<ContentType> registry) {
+        this.registry = registry;
     }
 
     private final IForgeRegistry<ContentType> registry;
@@ -45,11 +34,15 @@ public class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>>
         return CONTENT_MAP;
     }
 
-    private ContentLoader(IForgeRegistry<ContentType> registry) {
-        this.registry = registry;
+    public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister) {
+        ModLogger.info("Registering content for " + modID);
+        CONTENT_GROUP = contentGroup;
+        BlockLoader.INSTANCE.register(blockRegister);
+        ItemLoader.INSTANCE.register(itemRegister);
+        TileLoader.INSTANCE.register(tileRegister);
     }
 
-    private void register(Class contentRegister) {
+    protected void register(Class<?> contentRegister) {
         try {
             Class<ContentType> superType = registry.getRegistrySuperType();
             for (Field field : contentRegister.getDeclaredFields()) {
@@ -57,32 +50,7 @@ public class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>>
                 String fieldName = field.getName().toLowerCase();
 
                 if (superType.isInstance(obj)) {
-                    ContentType contentType = superType.cast(obj);
-                    String contentTypeName = superType.getSimpleName();
-                    ItemGroup contentGroup = contentType instanceof IHasCustomGroup ? ((IHasCustomGroup) contentType).getCustomItemGroup() : CONTENT_GROUP;
-
-                    if (contentType instanceof Item) ITEMS.getRegister().register(fieldName, () -> contentType instanceof IHasNoGroup ? new Item(new Item.Properties()) : new Item(new Item.Properties().group(contentGroup)));
-                    else getRegister().register(fieldName, () -> contentType);
-
-                    CONTENT_MAP.put(contentType.getRegistryName(), contentType);
-                    ModLogger.info("[" + contentTypeName.toUpperCase() + "]: " + fieldName + " has been registered by Bibliotheca for the mod " + ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName());
-
-                    if (contentType instanceof Block) {
-                        BLOCK_LIST.put(fieldName, ((Block) contentType).getBlock());
-                        BlockItem blockItem;
-                        if (contentType instanceof IHasCustomBlockItem) {
-                            blockItem = ((IHasCustomBlockItem) contentType).getCustomBlockItem();
-                        } else {
-                            if (contentType instanceof IHasNoGroup) {
-                                blockItem = new BlockItem((Block) contentType, new Item.Properties());
-                            } else {
-                                blockItem = new BlockItem((Block) contentType, new Item.Properties().group(contentGroup));
-                            }
-                        }
-                        ITEMS.getRegister().register(fieldName, () -> blockItem);
-                        ITEMS.CONTENT_MAP.put(contentType.getRegistryName(), blockItem);
-                        ModLogger.info("[BLOCK-ITEM]: " + fieldName + " has been registered by Bibliotheca for the mod " + ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName());
-                    }
+                    onRegister(fieldName, superType.cast(obj));
                 }
             }
         } catch (IllegalAccessException e) {
@@ -90,7 +58,9 @@ public class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>>
         }
     }
 
-    private DeferredRegister<ContentType> getRegister(String modID) {
+    protected abstract void onRegister(String name, ContentType obj);
+
+    protected DeferredRegister<ContentType> getRegister(String modID) {
         return REGISTERS.computeIfAbsent(modID, id -> {
             DeferredRegister<ContentType> register = new DeferredRegister<>(registry, id);
             register.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -98,11 +68,16 @@ public class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>>
         });
     }
 
-    private DeferredRegister<ContentType> getRegister() {
+    protected DeferredRegister<ContentType> getRegister() {
         return getRegister(ModLoadingContext.get().getActiveContainer().getModId());
     }
 
-    public interface IHasNoGroup {}
+    protected String activeModName() {
+        return ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
+    }
+
+    public interface IHasNoGroup {
+    }
 
     public interface IHasCustomGroup {
         ItemGroup getCustomItemGroup();
