@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemLoader extends ContentLoader<Item> {
+
     public static final ItemLoader INSTANCE = new ItemLoader();
 
     private ItemLoader() {

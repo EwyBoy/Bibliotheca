@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockLoader extends ContentLoader<Block> {
+
     public static final BlockLoader INSTANCE = new BlockLoader();
 
     private BlockLoader() {
@@ -27,8 +28,11 @@ public class BlockLoader extends ContentLoader<Block> {
         } else {
             Item.Properties properties = new Item.Properties();
             // Add custom Item Groups
-            if (block instanceof IHasCustomGroup)
+            if (block instanceof IHasCustomGroup) {
                 properties.group(((IHasCustomGroup) block).getCustomItemGroup());
+            } else if (!(block instanceof IHasNoGroup)) {
+                properties.group(ContentLoader.CONTENT_GROUP);
+            }
             item = new BaseItemBlock(block, properties);
         }
         ItemLoader.INSTANCE.onRegister(name, item);
