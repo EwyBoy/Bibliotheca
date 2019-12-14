@@ -24,7 +24,7 @@ public class WailaCompatibility implements IComponentProvider, IWailaPlugin {
     @Override
     public void register(IRegistrar registrar) {
         if (!loaded) {
-            BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier::get).forEach(block -> {
+            BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).forEach(block -> {
                 if (block instanceof IWailaInfo) {
                     ModLogger.info("Waila information registered for " + block.getRegistryName());
                     registrar.registerComponentProvider(INSTANCE, TooltipPosition.BODY, block.getClass());
