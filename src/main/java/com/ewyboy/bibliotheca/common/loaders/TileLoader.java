@@ -13,8 +13,7 @@ public class TileLoader extends ContentLoader<TileEntityType<?>> {
 
     @Override
     protected void onRegister(String name, TileEntityType<?> tileType) {
-        getRegister().register(name, () -> tileType);
-        getContentMap().put(tileType.getRegistryName(), tileType);
+        getContentMap().put(tileType.getRegistryName(), getRegister().register(name, () -> tileType));
         ModLogger.info("[TILE-TYPE]: {} has been registered by Bibliotheca for {}", name, activeModName());
     }
 }
