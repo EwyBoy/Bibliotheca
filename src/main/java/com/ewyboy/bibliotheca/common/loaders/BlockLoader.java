@@ -5,6 +5,7 @@ import com.ewyboy.bibliotheca.util.ModLogger;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockLoader extends ContentLoader<Block> {
@@ -17,7 +18,7 @@ public class BlockLoader extends ContentLoader<Block> {
 
     @Override
     protected void onRegister(String name, Block block) {
-        getContentMap().put(block.getRegistryName(), getRegister().register(name, () -> block));
+        getContentMap().put(new ResourceLocation(activeModId(), name), getRegister().register(name, () -> block));
         ModLogger.info("[BLOCK]: {} has been registered by Bibliotheca for {}", name, activeModName());
 
         // Handle Block Items
