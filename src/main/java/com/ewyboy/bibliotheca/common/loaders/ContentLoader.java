@@ -77,6 +77,10 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         return ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
     }
 
+    protected String activeModId() {
+        return ModLoadingContext.get().getActiveContainer().getModInfo().getModId();
+    }
+
     public interface IHasNoGroup {
     }
 
