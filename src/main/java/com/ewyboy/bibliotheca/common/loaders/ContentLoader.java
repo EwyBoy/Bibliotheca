@@ -86,5 +86,4 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
     public interface IHasCustomBlockItem {
         BlockItem getCustomBlockItem();
     }
-
 }
