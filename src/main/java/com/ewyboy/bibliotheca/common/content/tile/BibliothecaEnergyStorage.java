@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class BibliothecaEnergyStorage extends EnergyStorage {
+
     private static final String NBT_KEY_ENERGY_INFO = "energy-info";
     private static final String NBT_KEY_CAPACITY = "capacity";
     private static final String NBT_KEY_MAX_RECEIVE = "maxReceive";

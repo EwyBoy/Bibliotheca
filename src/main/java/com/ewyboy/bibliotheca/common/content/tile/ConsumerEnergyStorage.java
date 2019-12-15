@@ -1,6 +1,7 @@
 package com.ewyboy.bibliotheca.common.content.tile;
 
 public class ConsumerEnergyStorage extends BibliothecaEnergyStorage {
+
     public ConsumerEnergyStorage(int capacity) {
         super(capacity);
     }

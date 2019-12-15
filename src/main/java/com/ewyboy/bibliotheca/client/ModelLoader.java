@@ -3,6 +3,7 @@ package com.ewyboy.bibliotheca.client;
 import com.ewyboy.bibliotheca.client.interfaces.IHasOBJModel;
 import com.ewyboy.bibliotheca.client.interfaces.IHasSpecialRenderer;
 import com.ewyboy.bibliotheca.client.interfaces.INeedTexture;
+import com.ewyboy.bibliotheca.common.loaders.BlockLoader;
 import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
 import com.ewyboy.bibliotheca.util.ModLogger;
 import com.ewyboy.bibliotheca.util.Reference;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = Reference.ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModelLoader {
@@ -42,7 +44,7 @@ public class ModelLoader {
 
     @OnlyIn(Dist.CLIENT)
     public static void initSpecialRenders() {
-        ContentLoader.BLOCK_LIST.values().stream().filter(block -> block instanceof IHasSpecialRenderer).forEach(block -> {
+        BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier:: get).filter(block -> block instanceof IHasSpecialRenderer).forEach(block -> {
             ((IHasSpecialRenderer)block).initSpecialRenderer();
             ModLogger.info("[RENDERING] Loaded in special renderer for " + block.getRegistryName());
         });
@@ -50,7 +52,7 @@ public class ModelLoader {
 
     @SubscribeEvent
     public static void onPreTextureStitch(TextureStitchEvent.Pre event) {
-        ContentLoader.BLOCK_LIST.values().stream().filter(block -> block instanceof INeedTexture).forEach(block -> {
+        BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier:: get).filter(block -> block instanceof INeedTexture).forEach(block -> {
             ((INeedTexture) block).getTextures().forEach(event :: addSprite);
             ModLogger.info("[TEXTURE] Loaded in " + ((INeedTexture) block).getTextures().size() + " custom texture for " + block.getRegistryName());
         });
@@ -58,7 +60,7 @@ public class ModelLoader {
 
     @SubscribeEvent
     public static void onModelBakeEvent(ModelBakeEvent event) {
-        ContentLoader.BLOCK_LIST.values().stream().filter(block -> block instanceof IHasOBJModel).forEach(block -> {
+        BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier:: get).filter(block -> block instanceof IHasOBJModel).forEach(block -> {
             enableResourceDomain(block);
             try {
                 IUnbakedModel model = ModelLoaderRegistry.getModelOrMissing(((IHasOBJModel) block).getOBJModelLocation());

@@ -2,7 +2,6 @@ package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.util.ModLogger;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
@@ -13,15 +12,12 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>> {
 
     public static ItemGroup CONTENT_GROUP;
-
-    public static final HashMap<String, Block> BLOCK_LIST = new HashMap<>();
 
     ContentLoader(IForgeRegistry<ContentType> registry) {
         this.registry = registry;

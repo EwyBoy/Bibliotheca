@@ -30,12 +30,6 @@ public class WailaCompatibility implements IComponentProvider, IWailaPlugin {
                     registrar.registerComponentProvider(INSTANCE, TooltipPosition.BODY, block.getClass());
                 }
             });
-            /*ContentLoader.BLOCK_LIST.values().forEach(block -> {
-                if (block instanceof IWailaInfo) {
-                    ModLogger.info("Waila information registered for " + block.getRegistryName());
-                    registrar.registerComponentProvider(INSTANCE, TooltipPosition.BODY, block.getClass());
-                }
-            });*/
         }
         loaded = true;
     }

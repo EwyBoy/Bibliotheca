@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ExampleEnergyTile extends TileEntity {
+
     private static final int capacity = 3000;
     private static final int maxIn = 500;
     private ConsumerEnergyStorage battery = new ConsumerEnergyStorage(capacity, maxIn);
@@ -51,7 +52,7 @@ public class ExampleEnergyTile extends TileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return LazyOptionalHelper.findFirst(ImmutableSet.of(
+        return LazyOptionalHelper.findFirst(ImmutableSet.of (
                 () -> CapabilityEnergy.ENERGY.orEmpty(cap, getEnergyOptional()),
                 () -> super.getCapability(cap, side)
         )).cast();
