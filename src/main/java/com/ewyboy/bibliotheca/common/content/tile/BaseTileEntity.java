@@ -8,8 +8,19 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public abstract class BaseTileEntity extends TileEntity {
+    @CapabilityInject(IEnergyStorage.class)
+    protected static Capability<IEnergyStorage> ENERGY_CAP = null;
+    @CapabilityInject(IItemHandler.class)
+    protected static Capability<IItemHandler> ITEM_CAP = null;
+    @CapabilityInject(IFluidHandler.class)
+    protected static Capability<IFluidHandler> FLUID_CAP = null;
 
     public BaseTileEntity(TileEntityType tileEntityType) {
         super(tileEntityType);
@@ -29,9 +40,9 @@ public abstract class BaseTileEntity extends TileEntity {
         readSharedNBT(compound);
     }
 
-    public void writeSharedNBT(CompoundNBT compound) {}
+    public abstract void writeSharedNBT(CompoundNBT compound);
 
-    public void readSharedNBT(CompoundNBT compound) {}
+    public abstract void readSharedNBT(CompoundNBT compound);
 
     public void sync() {
         VanillaMessageDispatcher.dispatchTEToNearbyPlayers(this);

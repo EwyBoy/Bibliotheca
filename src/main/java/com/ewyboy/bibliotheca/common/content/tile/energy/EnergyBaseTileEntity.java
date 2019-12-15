@@ -1,5 +1,6 @@
-package com.ewyboy.bibliotheca.common.content.tile;
+package com.ewyboy.bibliotheca.common.content.tile.energy;
 
+import com.ewyboy.bibliotheca.common.content.tile.BaseTileEntity;
 import com.ewyboy.bibliotheca.util.ModLogger;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
