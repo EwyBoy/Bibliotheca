@@ -1,6 +1,7 @@
 package com.ewyboy.bibliotheca.proxy;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public interface IModProxy {
 
@@ -8,6 +9,6 @@ public interface IModProxy {
 
     void construct();
 
-    void setup();
+    void setup(final FMLCommonSetupEvent event);
 
 }

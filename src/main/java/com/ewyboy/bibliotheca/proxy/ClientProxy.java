@@ -2,6 +2,7 @@ package com.ewyboy.bibliotheca.proxy;
 
 import com.ewyboy.bibliotheca.client.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ClientProxy extends CommonProxy {
 
@@ -16,8 +17,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void setup() {
-        super.setup();
+    public void setup(final FMLCommonSetupEvent event) {
+        super.setup(event);
         ModelLoader.initSpecialRenders();
     }
 }
