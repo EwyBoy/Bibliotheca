@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @WailaPlugin
-public class WailaCompatibility implements IComponentProvider, IWailaPlugin, IBlockDecorator {
+public class WailaCompatibility implements IComponentProvider, IWailaPlugin {
 
     private static boolean loaded;
     private static final WailaCompatibility INSTANCE = new WailaCompatibility();
@@ -25,13 +25,10 @@ public class WailaCompatibility implements IComponentProvider, IWailaPlugin, IBl
 
     @Override
     public ItemStack getStack(IDataAccessor accessor, IPluginConfig config) {
-        return accessor.getBlock() instanceof IWailaCamouflage ? ((IWailaCamouflage) accessor.getBlock()).decorateBlock(accessor, config) : null;
-    }
-
-    @Override
-    public void decorateBlock(ItemStack itemStack, IDataAccessor accessor, IPluginConfig config) {
         if (accessor.getBlock() instanceof IWailaCamouflage) {
-            ((IWailaCamouflage) accessor.getBlock()).decorateBlock(accessor, config);
+            return ((IWailaCamouflage) accessor.getBlock()).decorateBlock(accessor, config);
+        } else {
+            return ItemStack.EMPTY;
         }
     }
 
@@ -39,10 +36,9 @@ public class WailaCompatibility implements IComponentProvider, IWailaPlugin, IBl
     public void register(IRegistrar registrar) {
         if (!loaded) {
             BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).forEach(block -> {
-                if (block instanceof IWailaInfo) {
+                if (block instanceof IWailaInfo || block instanceof IWailaCamouflage) {
                     ModLogger.info("Waila information registered for " + block.getRegistryName());
                     registrar.registerComponentProvider(INSTANCE, TooltipPosition.BODY, block.getClass());
-                    registrar.registerDecorator(INSTANCE, block.getClass());
                 }
             });
         }
