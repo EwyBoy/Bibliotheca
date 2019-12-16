@@ -1,12 +1,19 @@
 package com.ewyboy.bibliotheca.common.loaders;
 
+import com.ewyboy.bibliotheca.common.content.BibItemGroup;
 import com.ewyboy.bibliotheca.common.content.item.BaseItemBlock;
+import com.ewyboy.bibliotheca.common.datagenerator.BibLanguageProvider;
+import com.ewyboy.bibliotheca.common.datagenerator.IFancyTranslation;
 import com.ewyboy.bibliotheca.util.ModLogger;
 import net.minecraft.block.Block;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Supplier;
 
 public class BlockLoader extends ContentLoader<Block> {
 
@@ -36,5 +43,29 @@ public class BlockLoader extends ContentLoader<Block> {
             item = new BaseItemBlock(block, properties);
         }
         ItemLoader.INSTANCE.onRegister(name, item);
+    }
+
+    @Override
+    public void genData(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
+        // Add Language DataGen
+        for (Supplier<Block> sup : getContentMap().values()) {
+
+            Block block = sup.get();
+            ResourceLocation name = block.getRegistryName();
+            assert name != null;
+
+            String translation;
+            if (block instanceof IFancyTranslation) {
+                translation = ((IFancyTranslation) block).englishTranslation();
+            } else {
+                translation = BibLanguageProvider.getEnglishTranslation(name.getPath());
+            }
+
+            BibLanguageProvider.get(dataGenerator, name.getNamespace(), "en_us").add(block, translation);
+        }
+
+        for (BibItemGroup group : groups) {
+            BibLanguageProvider.get(dataGenerator, group.getModid(), "en_us").add(group.getTranslationKey(), group.englishTranslation());
+        }
     }
 }
