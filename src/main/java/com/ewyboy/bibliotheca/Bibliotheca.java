@@ -12,10 +12,13 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
-import static com.ewyboy.bibliotheca.util.Reference.ModInfo.MOD_ID;
+import static com.ewyboy.bibliotheca.Bibliotheca.ID;
 
-@Mod(MOD_ID)
+@Mod(ID)
 public class Bibliotheca {
+
+    public static final String ID = "bibliotheca";
+    public static final String NAME = "Bibliotheca";
 
     private static final IModProxy proxy = DistExecutor.runForDist(
             () -> ClientProxy::new,
@@ -26,7 +29,7 @@ public class Bibliotheca {
         EventHandler.MOD.register(proxy::setup);
         EventHandler.MOD.register(this::onGatherData);
         proxy.construct();
-        ContentLoader.init(MOD_ID, null, null, Items.class, null);
+        ContentLoader.init(ID, null, null, Items.class, null);
     }
 
     private void onGatherData(final GatherDataEvent event) {
@@ -36,7 +39,7 @@ public class Bibliotheca {
     }
 
     public static class Items {
-        public static final BibItemGroup BIB_GROUP = new BibItemGroup(MOD_ID, MOD_ID) {
+        public static final BibItemGroup BIB_GROUP = new BibItemGroup(ID, ID) {
             @Override
             public ItemStack createIcon() {
                 return new ItemStack(TEST_ITEM);
