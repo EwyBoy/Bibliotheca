@@ -10,7 +10,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
@@ -65,7 +66,7 @@ public class BlockLoader extends ContentLoader<Block> {
         }
 
         for (BibItemGroup group : groups) {
-            BibLanguageProvider.get(dataGenerator, group.getModid(), "en_us").add(group.getTranslationKey(), group.englishTranslation());
+            BibLanguageProvider.get(dataGenerator, group.getModid(), "en_us").add("itemGroup." + group.getPath(), group.englishTranslation());
         }
     }
 }
