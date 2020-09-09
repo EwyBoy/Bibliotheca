@@ -4,7 +4,7 @@ import com.ewyboy.bibliotheca.util.ModLogger;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TileLoader extends ContentLoader<TileEntityType<?>> {

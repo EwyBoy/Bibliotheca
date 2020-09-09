@@ -1,0 +1,8 @@
+{
+  "block.biblibtest.test_block": "Test Block",
+  "block.biblibtest.test_tile_block": "Test Tile Block",
+  "item.biblibtest.test_block": "Test Block",
+  "item.biblibtest.test_item": "Test Item",
+  "item.biblibtest.test_tile_block": "Test Tile Block",
+  "itemGroup.biblibtest.biblibtest": "Biblibtest"
+}

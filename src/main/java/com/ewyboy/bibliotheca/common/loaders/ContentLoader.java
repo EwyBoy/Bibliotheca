@@ -8,7 +8,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -89,7 +89,7 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
 
     protected DeferredRegister<ContentType> getRegister(String modID) {
         return REGISTERS.computeIfAbsent(modID, id -> {
-            DeferredRegister<ContentType> register = new DeferredRegister<>(registry, id);
+            DeferredRegister<ContentType> register = DeferredRegister.create(registry, id);
             register.register(FMLJavaModLoadingContext.get().getModEventBus());
             return register;
         });

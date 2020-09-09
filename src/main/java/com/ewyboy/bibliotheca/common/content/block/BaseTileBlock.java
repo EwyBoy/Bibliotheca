@@ -8,11 +8,11 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class TileBaseBlock<T extends TileEntity> extends BaseBlock {
+public abstract class BaseTileBlock<T extends TileEntity> extends BaseBlock {
 
     protected abstract Class<T> getTileClass();
 
-    public TileBaseBlock(Properties properties) {
+    public BaseTileBlock(Properties properties) {
         super(properties);
     }
 

@@ -24,7 +24,7 @@ public class GuiHelper {
         MINECRAFT.textureManager.bindTexture(slotTexture);
 
         int realSize = 18;
-        double u = 1;
+        float u = 1;
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder worldRenderer = tessellator.getBuffer();
@@ -76,8 +76,8 @@ public class GuiHelper {
         tessellator.draw();
     }
 
-    private static double getEnd(double width, double other) {
-        return (1D / width) * other;
+    private static float getEnd(double width, double other) {
+        return (float) ((1D / width) * other);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.ewyboy.bibliotheca.common.network;
 
+import com.ewyboy.bibliotheca.Bibliotheca;
 import com.ewyboy.bibliotheca.common.network.messages.MessageBase;
-import com.ewyboy.bibliotheca.util.Reference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -12,7 +12,7 @@ public class MessageHandler {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder
-        .named(new ResourceLocation(Reference.ModInfo.MOD_ID, "network"))
+        .named(new ResourceLocation(Bibliotheca.ID, "network"))
         .clientAcceptedVersions(PROTOCOL_VERSION :: equals)
         .serverAcceptedVersions(PROTOCOL_VERSION :: equals)
         .networkProtocolVersion(() ->  PROTOCOL_VERSION)

@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.HashMap;
@@ -80,16 +79,6 @@ public class BibLanguageProvider extends LanguageProvider {
 
     @Override
     public void add(Enchantment key, String name) {
-        super.add(key, name);
-    }
-
-    @Override
-    public void addBiome(Supplier<? extends Biome> key, String name) {
-        super.addBiome(key, name);
-    }
-
-    @Override
-    public void add(Biome key, String name) {
         super.add(key, name);
     }
 

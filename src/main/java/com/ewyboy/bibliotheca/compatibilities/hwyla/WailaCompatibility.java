@@ -3,7 +3,6 @@ package com.ewyboy.bibliotheca.compatibilities.hwyla;
 import com.ewyboy.bibliotheca.common.loaders.BlockLoader;
 import com.ewyboy.bibliotheca.util.ModLogger;
 import mcp.mobius.waila.api.*;
-import mcp.mobius.waila.overlay.DecoratorRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 

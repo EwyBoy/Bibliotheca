@@ -1,6 +1,7 @@
 package com.ewyboy.bibliotheca.common.content.tile;
 
 import com.ewyboy.bibliotheca.util.ModLogger;
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -59,7 +60,7 @@ public abstract class EnergyBaseTileEntity extends BaseTileEntity implements IEn
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
-        this.read(packet.getNbtCompound());
+        this.read(getBlockState(), packet.getNbtCompound());
     }
 
     @Override
@@ -76,9 +77,9 @@ public abstract class EnergyBaseTileEntity extends BaseTileEntity implements IEn
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(BlockState state, CompoundNBT compound) {
         ModLogger.info("Restoring data from NBT {}", compound);
-        super.read(compound);
+        super.read(state, compound);
         if (compound.contains("energy")) {
             generateEnergy(compound.getInt("energy"));
         }

@@ -3,6 +3,7 @@ package com.ewyboy.bibliotheca.common.content.tile;
 import javax.annotation.Nonnull;
 
 import com.ewyboy.bibliotheca.common.network.dispatcher.VanillaMessageDispatcher;
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -24,8 +25,8 @@ public abstract class BaseTileEntity extends TileEntity {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         readSharedNBT(compound);
     }
 

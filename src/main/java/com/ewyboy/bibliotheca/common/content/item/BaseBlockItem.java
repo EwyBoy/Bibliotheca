@@ -3,9 +3,9 @@ package com.ewyboy.bibliotheca.common.content.item;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockNamedItem;
 
-public class BaseItemBlock extends BlockNamedItem {
+public class BaseBlockItem extends BlockNamedItem {
 
-    public BaseItemBlock(Block blockIn, Properties properties) {
+    public BaseBlockItem(Block blockIn, Properties properties) {
         super(blockIn, properties);
     }
 }

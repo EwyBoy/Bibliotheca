@@ -31,6 +31,9 @@ minecraft {
                 bibliotheca {
                     source sourceSets.main
                 }
+                testmod {
+                    source sourceSets.test
+                }
             }
         }
 
@@ -42,17 +45,23 @@ minecraft {
                 bibliotheca {
                     source sourceSets.main
                 }
+                testmod {
+                    source sourceSets.test
+                }
             }
         }
 
         data {
             workingDirectory project.file('run')
-            args '--mod', 'bibliotheca', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'biblibtest', '--all', '--output', file('src/generated/resources/')
             ideaModule "${project.name}.main"
 
             mods {
                 bibliotheca {
                     source sourceSets.main
+                }
+                testmod {
+                    source sourceSets.test
                 }
             }
         }
@@ -64,13 +73,15 @@ repositories {
     maven {
         // Hwyla
         name "tehnut"
-        url "https://tehnut.info/maven"
+        url "https://maven.tehnut.info"
     }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${MC_VERSION}-${FORGE_VERSION}"
-    compile fg.deobf('mcp.mobius.waila:Hwyla:1.10.6-B67_1.14.4')
+
+    compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${HWYLA_VERSION}:api")
+    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${HWYLA_VERSION}")
 }
 
 jar {

@@ -1,12 +1,11 @@
 package com.ewyboy.bibliotheca.client;
 
+import com.ewyboy.bibliotheca.Bibliotheca;
 import com.ewyboy.bibliotheca.client.interfaces.IHasOBJModel;
 import com.ewyboy.bibliotheca.client.interfaces.IHasSpecialRenderer;
 import com.ewyboy.bibliotheca.client.interfaces.INeedTexture;
 import com.ewyboy.bibliotheca.common.loaders.BlockLoader;
-import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
 import com.ewyboy.bibliotheca.util.ModLogger;
-import com.ewyboy.bibliotheca.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
@@ -28,7 +27,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = Reference.ModInfo.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Bibliotheca.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModelLoader {
 
     private static final Set<String> enabledDomains = new HashSet<>();
