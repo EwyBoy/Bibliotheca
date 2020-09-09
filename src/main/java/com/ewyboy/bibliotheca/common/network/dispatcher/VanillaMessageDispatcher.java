@@ -16,7 +16,7 @@ public final class VanillaMessageDispatcher {
 			SUpdateTileEntityPacket message = tile.getUpdatePacket();
 			BlockPos pos = tile.getPos();
 			for (PlayerEntity player : world.getPlayers()) {
-				if (player instanceof ServerPlayerEntity && pointDistancePlane(player.posX, player.posZ, pos.getX(), pos.getZ()) < 64) {
+				if (player instanceof ServerPlayerEntity && pointDistancePlane(player.getPosX(), player.getPosZ(), pos.getX(), pos.getZ()) < 64) {
 					if (message != null) {
 						((ServerPlayerEntity) player).connection.sendPacket(message);
 					}

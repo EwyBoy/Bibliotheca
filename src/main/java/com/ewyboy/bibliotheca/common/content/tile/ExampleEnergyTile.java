@@ -2,6 +2,7 @@ package com.ewyboy.bibliotheca.common.content.tile;
 
 import com.ewyboy.bibliotheca.util.LazyOptionalHelper;
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -31,9 +32,9 @@ public class ExampleEnergyTile extends TileEntity {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(BlockState state, CompoundNBT compound) {
         battery.load(compound);
-        super.read(compound);
+        super.read(state, compound);
     }
 
     @Override

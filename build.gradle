@@ -31,6 +31,9 @@ minecraft {
                 bibliotheca {
                     source sourceSets.main
                 }
+                testmod {
+                    source sourceSets.test
+                }
             }
         }
 
@@ -41,6 +44,9 @@ minecraft {
             mods {
                 bibliotheca {
                     source sourceSets.main
+                }
+                testmod {
+                    source sourceSets.test
                 }
             }
         }
