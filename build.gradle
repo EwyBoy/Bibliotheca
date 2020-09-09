@@ -53,12 +53,15 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            args '--mod', 'bibliotheca', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'biblibtest', '--all', '--output', file('src/generated/resources/')
             ideaModule "${project.name}.main"
 
             mods {
                 bibliotheca {
                     source sourceSets.main
+                }
+                testmod {
+                    source sourceSets.test
                 }
             }
         }

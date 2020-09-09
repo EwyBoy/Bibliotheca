@@ -20,11 +20,12 @@ public class BibliothecaTest {
     }
 
     public static final class Blocks {
-        public static final Block TEST_BLOCK = new Block(AbstractBlock.Properties.create(Material.IRON));
+        public static final Block TEST_BLOCK = new TestBlock(AbstractBlock.Properties.create(Material.IRON));
+        public static final Block TEST_TILE_BLOCK = new TestTileBlock(AbstractBlock.Properties.create(Material.IRON));
     }
 
     public static final class Tiles {
-        public static final TileEntityType TEST_BLOCK = Builder.create(TestTile::new, Blocks.TEST_BLOCK).build(null);
+        public static final TileEntityType<TestTile> TEST_TILE_BLOCK = Builder.create(TestTile::new, Blocks.TEST_BLOCK).build(null);
     }
 
     public static final class Items {

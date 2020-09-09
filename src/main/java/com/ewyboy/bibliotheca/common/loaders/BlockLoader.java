@@ -1,7 +1,7 @@
 package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.common.content.BibItemGroup;
-import com.ewyboy.bibliotheca.common.content.item.BaseItemBlock;
+import com.ewyboy.bibliotheca.common.content.item.BaseBlockItem;
 import com.ewyboy.bibliotheca.common.datagenerator.BibLanguageProvider;
 import com.ewyboy.bibliotheca.common.datagenerator.IFancyTranslation;
 import com.ewyboy.bibliotheca.util.ModLogger;
@@ -10,7 +10,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -41,7 +40,7 @@ public class BlockLoader extends ContentLoader<Block> {
             } else if (!(block instanceof IHasNoGroup)) {
                 properties.group(ContentLoader.CONTENT_GROUP);
             }
-            item = new BaseItemBlock(block, properties);
+            item = new BaseBlockItem(block, properties);
         }
         ItemLoader.INSTANCE.onRegister(name, item);
     }
