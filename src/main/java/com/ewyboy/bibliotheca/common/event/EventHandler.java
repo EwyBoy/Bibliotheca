@@ -12,7 +12,8 @@ import java.util.function.Supplier;
 public class EventHandler {
 
     public static final EventHandler FORGE = new EventHandler(() -> MinecraftForge.EVENT_BUS);
-    public static final EventHandler MOD = new EventHandler(FMLJavaModLoadingContext.get()::getModEventBus);
+    // WARNING: DO NOT CHANGE THIS TO USE A METHOD REFERENCE
+    public static final EventHandler MOD = new EventHandler(() -> FMLJavaModLoadingContext.get().getModEventBus());
     private final Supplier<IEventBus> bus;
 
     public EventHandler(Supplier<IEventBus> bus) {

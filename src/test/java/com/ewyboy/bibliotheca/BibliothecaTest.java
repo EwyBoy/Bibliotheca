@@ -1,6 +1,7 @@
 package com.ewyboy.bibliotheca;
 
 import com.ewyboy.bibliotheca.common.content.BibItemGroup;
+import com.ewyboy.bibliotheca.common.event.EventHandler;
 import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntityType.Builder;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 @Mod(BibliothecaTest.ID)
 public class BibliothecaTest {
@@ -17,6 +19,13 @@ public class BibliothecaTest {
 
     public BibliothecaTest() {
         ContentLoader.init(ID, Items.BIB_GROUP, Blocks.class, Items.class, Tiles.class);
+        EventHandler.MOD.register(this::onGatherData);
+    }
+
+    private void onGatherData(final GatherDataEvent event) {
+        for (ContentLoader<?> contentLoader : ContentLoader.getLoaders()) {
+            contentLoader.genData(event.getGenerator(), event.getExistingFileHelper());
+        }
     }
 
     public static final class Blocks {

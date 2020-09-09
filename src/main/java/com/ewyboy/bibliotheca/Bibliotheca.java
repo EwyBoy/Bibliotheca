@@ -18,7 +18,6 @@ public class Bibliotheca {
     public Bibliotheca() {
         EventHandler.MOD.register(this::onCommonSetup);
         EventHandler.MOD.register(this::onClientSetup);
-        EventHandler.MOD.register(this::onGatherData);
     }
 
     private void onCommonSetup(final FMLCommonSetupEvent event) {
@@ -27,11 +26,5 @@ public class Bibliotheca {
 
     private void onClientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(ModelLoader::initSpecialRenders);
-    }
-
-    private void onGatherData(final GatherDataEvent event) {
-        for (ContentLoader<?> contentLoader : ContentLoader.getLoaders()) {
-            contentLoader.genData(event.getGenerator(), event.getExistingFileHelper());
-        }
     }
 }
