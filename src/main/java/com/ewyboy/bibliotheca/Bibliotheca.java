@@ -10,6 +10,7 @@ import static com.ewyboy.bibliotheca.Bibliotheca.ID;
 
 @Mod(ID)
 public class Bibliotheca {
+
     public static final String ID = "bibliotheca";
     public static final String NAME = "Bibliotheca";
 
@@ -23,6 +24,6 @@ public class Bibliotheca {
     }
 
     private void onClientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(BibModelLoader::initSpecialRenders);
+        //event.enqueueWork(BibModelLoader::initSpecialRenders);
     }
 }

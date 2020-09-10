@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>> {
+
     protected static Set<BibItemGroup> groups = new HashSet<>();
     public static ItemGroup CONTENT_GROUP;
 
