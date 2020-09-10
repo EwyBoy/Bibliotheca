@@ -5,7 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IEnviromentBlockReader;
+import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
@@ -17,6 +17,6 @@ public interface IBlockColorizer extends IBlockColor {
     boolean isItemBlockColored();
 
     @Override
-    int getColor(BlockState blockState, @Nullable IEnviromentBlockReader iEnviromentBlockReader, @Nullable BlockPos blockPos, int i);
+    int getColor(BlockState state, @Nullable IBlockDisplayReader blockDisplayReader, @Nullable BlockPos pos, int color);
 
 }

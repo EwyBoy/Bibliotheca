@@ -1,12 +1,10 @@
 package com.ewyboy.bibliotheca;
 
-import com.ewyboy.bibliotheca.client.ModelLoader;
+import com.ewyboy.bibliotheca.client.BibModelLoader;
 import com.ewyboy.bibliotheca.common.event.EventHandler;
-import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 import static com.ewyboy.bibliotheca.Bibliotheca.ID;
 
@@ -25,6 +23,6 @@ public class Bibliotheca {
     }
 
     private void onClientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(ModelLoader::initSpecialRenders);
+        event.enqueueWork(BibModelLoader::initSpecialRenders);
     }
 }

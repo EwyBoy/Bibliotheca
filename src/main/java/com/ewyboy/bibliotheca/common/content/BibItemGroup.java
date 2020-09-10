@@ -6,6 +6,7 @@ import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
 import net.minecraft.item.ItemGroup;
 
 public abstract class BibItemGroup extends ItemGroup implements IFancyTranslation {
+
     private final String modid;
     private final String name;
 

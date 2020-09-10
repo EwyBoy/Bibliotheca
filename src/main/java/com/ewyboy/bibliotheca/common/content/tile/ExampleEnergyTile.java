@@ -32,9 +32,9 @@ public class ExampleEnergyTile extends TileEntity {
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        battery.load(compound);
-        super.read(state, compound);
+    public void read(BlockState state, CompoundNBT nbt) {
+        battery.load(nbt);
+        super.read(state, nbt);
     }
 
     @Override

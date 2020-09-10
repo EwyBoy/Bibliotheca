@@ -8,6 +8,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TileLoader extends ContentLoader<TileEntityType<?>> {
+
     public static final TileLoader INSTANCE = new TileLoader();
 
     private TileLoader() {

@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class BibLanguageProvider extends LanguageProvider {
+
     private BibLanguageProvider(DataGenerator gen, String modid, String locale) {
         super(gen, modid, locale);
     }

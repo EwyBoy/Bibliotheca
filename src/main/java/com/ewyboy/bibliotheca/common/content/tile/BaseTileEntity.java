@@ -25,9 +25,9 @@ public abstract class BaseTileEntity extends TileEntity {
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
-        readSharedNBT(compound);
+    public void read(BlockState state, CompoundNBT nbt) {
+        super.read(state, nbt);
+        readSharedNBT(nbt);
     }
 
     public void writeSharedNBT(CompoundNBT compound) {}

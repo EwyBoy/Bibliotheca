@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -56,16 +57,12 @@ public class FluidRenderer {
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 
         mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-        //RenderUtil.setColorRGBA(color);
-        int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getAttributes().getLuminosity());
+        int brightness = mc.world.getLightSubtracted(pos, fluid.getFluid().getAttributes().getLuminosity());
 
         pre(x, y, z);
 
-        TextureAtlasSprite still = mc.getTextureMap().getSprite(fluid.getFluid().getAttributes().getStill(fluid));
-        TextureAtlasSprite flowing = mc.getTextureMap().getSprite(fluid.getFluid().getAttributes().getFlowing(fluid));
-
-
-        //TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getAttributes().getFlowing(fluid).toString());
+        TextureAtlasSprite still = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluid.getFluid().getAttributes().getStillTexture(fluid));
+        TextureAtlasSprite flowing = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluid.getFluid().getAttributes().getFlowingTexture(fluid));
 
         putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, brightness, false);
         putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, brightness, true);
@@ -119,12 +116,12 @@ public class FluidRenderer {
         BufferBuilder renderer = tessellator.getBuffer();
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
         mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-        int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getAttributes().getLuminosity());
+        int brightness = mc.world.getLightSubtracted(pos, fluid.getFluid().getAttributes().getLuminosity());
 
         pre(x, y, z);
 
-        TextureAtlasSprite still = mc.getTextureMap().getSprite(fluid.getFluid().getAttributes().getStill(fluid));
-        TextureAtlasSprite flowing = mc.getTextureMap().getSprite(fluid.getFluid().getAttributes().getFlowing(fluid));
+        TextureAtlasSprite still = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluid.getFluid().getAttributes().getStillTexture(fluid));
+        TextureAtlasSprite flowing = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluid.getFluid().getAttributes().getFlowingTexture(fluid));
 
         if (sideNorth) {
             putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, brightness, true);
@@ -157,19 +154,19 @@ public class FluidRenderer {
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
         mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
         int color = fluid.getFluid().getAttributes().getColor(fluid);
-        int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getAttributes().getLuminosity());
+        int brightness = mc.world.getLightSubtracted(pos, fluid.getFluid().getAttributes().getLuminosity());
 
         pre(px, py, pz);
         GlStateManager.translated(from.getX(), from.getY(), from.getZ());
 
-        TextureAtlasSprite still = mc.getTextureMap().getSprite(fluid.getFluid().getAttributes().getStill(fluid));
-        TextureAtlasSprite flowing = mc.getTextureMap().getSprite(fluid.getFluid().getAttributes().getFlowing(fluid));
+        TextureAtlasSprite still = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluid.getFluid().getAttributes().getStillTexture(fluid));
+        TextureAtlasSprite flowing = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluid.getFluid().getAttributes().getFlowingTexture(fluid));
 
         if (still == null) {
-            still = MissingTextureSprite.func_217790_a();
+            still = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(MissingTextureSprite.getLocation());
         }
         if (flowing == null) {
-            flowing = MissingTextureSprite.func_217790_a();
+            flowing = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(MissingTextureSprite.getLocation());
         }
 
         int xd = to.getX() - from.getX();
@@ -252,7 +249,7 @@ public class FluidRenderer {
 
     public static void putTexturedCuboid(BufferBuilder renderer, ResourceLocation location, double x1, double y1, double z1, double x2, double y2, double z2, int color, int brightness) {
         boolean flowing = false;
-        TextureAtlasSprite sprite = mc.getTextureMap().getSprite(location);
+        TextureAtlasSprite sprite = (TextureAtlasSprite) mc.getAtlasSpriteGetter(location);
 
         putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, brightness, flowing);
         putTexturedQuad(renderer, sprite, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, brightness, flowing);
@@ -280,10 +277,11 @@ public class FluidRenderer {
         if (sprite == null) {
             return;
         }
-        double minU;
-        double maxU;
-        double minV;
-        double maxV;
+
+        float minU;
+        float maxU;
+        float minV;
+        float maxV;
 
         double size = 16f;
         if (flowing) {
@@ -442,10 +440,10 @@ public class FluidRenderer {
             zt2 = tmp;
         }
 
-        double minU = sprite.getInterpolatedU(xt1 * size);
-        double maxU = sprite.getInterpolatedU(xt2 * size);
-        double minV = sprite.getInterpolatedV(zt1 * size);
-        double maxV = sprite.getInterpolatedV(zt2 * size);
+        float minU = sprite.getInterpolatedU(xt1 * size);
+        float maxU = sprite.getInterpolatedU(xt2 * size);
+        float minV = sprite.getInterpolatedV(zt1 * size);
+        float maxV = sprite.getInterpolatedV(zt2 * size);
 
         switch (rotation) {
             case NORTH:
@@ -509,10 +507,6 @@ public class FluidRenderer {
         float b = blue(color) / 255.0F;
 
         GlStateManager.color4f(r, g, b, a);
-    }
-
-    public static void setBrightness(BufferBuilder renderer, int brightness) {
-        renderer.putBrightness4(brightness, brightness, brightness, brightness);
     }
 
     public static int compose(int r, int g, int b, int a) {
