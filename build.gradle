@@ -26,28 +26,22 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            ideaModule "${project.name}.main"
+            ideaModule "${rootProject.name}.${project.name}.main"
 
             mods {
                 bibliotheca {
                     source sourceSets.main
-                }
-                testmod {
-                    source sourceSets.test
                 }
             }
         }
 
         server {
             workingDirectory project.file('run')
-            ideaModule "${project.name}.main"
+            ideaModule "${rootProject.name}.${project.name}.main"
 
             mods {
                 bibliotheca {
                     source sourceSets.main
-                }
-                testmod {
-                    source sourceSets.test
                 }
             }
         }
@@ -55,14 +49,11 @@ minecraft {
         data {
             workingDirectory project.file('run')
             args '--mod', 'biblibtest', '--all', '--output', file('src/generated/resources/')
-            ideaModule "${project.name}.main"
+            ideaModule "${rootProject.name}.${project.name}.main"
 
             mods {
                 bibliotheca {
                     source sourceSets.main
-                }
-                testmod {
-                    source sourceSets.test
                 }
             }
         }
@@ -99,20 +90,53 @@ jar {
     }
 }
 
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
 }
+
+task sourcesJar(type: Jar) {
+    classifier = "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = "javadoc"
+    from javadoc.destinationDir
+}
+
+tasks.build.dependsOn('sourcesJar', 'deobfJar')
+tasks.publish.dependsOn('build', 'reobfJar')
+
+artifacts {
+    archives jar
+    archives deobfJar
+    archives sourcesJar
+ }
+
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact reobfArtifact
-        }
-    }
     repositories {
         maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ewyboy/bibliotheca")
+            credentials {
+                username = property('gpr.username')
+                password = property('gpr.token')
+            }
+        }
+        maven {
+            name = "local"
             url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+        }
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
         }
     }
 }
