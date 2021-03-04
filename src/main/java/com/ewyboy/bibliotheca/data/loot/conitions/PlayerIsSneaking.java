@@ -1,4 +1,4 @@
-package com.ewyboy.bibliotheca.data.loot.serializers;
+package com.ewyboy.bibliotheca.data.loot.conitions;
 
 import com.ewyboy.bibliotheca.data.loot.LootConditions;
 import com.google.common.collect.ImmutableSet;
