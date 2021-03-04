@@ -2,9 +2,13 @@ package com.ewyboy.bibliotheca.common.helpers;
 
 import java.util.Random;
 
-public class MathHelper {
+public class ModMathHelper {
 
     private static Random random = new Random();
+
+    public static boolean roll(int percentage) {
+        return percentage > (int) (Math.random() * 100);
+    }
 
     /**
      * Returns a random integer between min (inclusive) and max (inclusive)

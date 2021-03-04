@@ -2,6 +2,7 @@ package com.ewyboy.bibliotheca;
 
 import com.ewyboy.bibliotheca.client.BibModelLoader;
 import com.ewyboy.bibliotheca.common.event.EventHandler;
+import com.ewyboy.bibliotheca.data.loot.LootConditions;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -15,8 +16,9 @@ public class Bibliotheca {
     public static final String NAME = "Bibliotheca";
 
     public Bibliotheca() {
-        EventHandler.MOD.register(this::onCommonSetup);
-        EventHandler.MOD.register(this::onClientSetup);
+        EventHandler.MOD.register(this :: onCommonSetup);
+        EventHandler.MOD.register(this :: onClientSetup);
+        LootConditions.init();
     }
 
     private void onCommonSetup(final FMLCommonSetupEvent event) {
@@ -24,6 +26,7 @@ public class Bibliotheca {
     }
 
     private void onClientSetup(final FMLClientSetupEvent event) {
-        //event.enqueueWork(BibModelLoader::initSpecialRenders);
+        event.enqueueWork(BibModelLoader :: initSpecialRenders);
     }
+
 }

@@ -24,8 +24,8 @@ public class WailaCompatibility implements IComponentProvider, IWailaPlugin {
 
     @Override
     public ItemStack getStack(IDataAccessor accessor, IPluginConfig config) {
-        if (accessor.getBlock() instanceof IWailaCamouflage) {
-            return ((IWailaCamouflage) accessor.getBlock()).decorateBlock(accessor, config);
+        if (accessor.getBlock() instanceof IWailaDecorator) {
+            return ((IWailaDecorator) accessor.getBlock()).decorateBlock(accessor, config);
         } else {
             return ItemStack.EMPTY;
         }
@@ -35,7 +35,7 @@ public class WailaCompatibility implements IComponentProvider, IWailaPlugin {
     public void register(IRegistrar registrar) {
         if (!loaded) {
             BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).forEach(block -> {
-                if (block instanceof IWailaInfo || block instanceof IWailaCamouflage) {
+                if (block instanceof IWailaInfo || block instanceof IWailaDecorator) {
                     ModLogger.info("Waila information registered for " + block.getRegistryName());
                     registrar.registerComponentProvider(INSTANCE, TooltipPosition.BODY, block.getClass());
                 }

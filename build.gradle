@@ -126,7 +126,7 @@ publishing {
         }
         maven {
             name = "local"
-            url "file:///${project.projectDir}/mcmodsrepo"
+            url "file:///${rootProject.projectDir}/mcmodsrepo"
         }
     }
     publications {

@@ -1,10 +1,10 @@
 package com.ewyboy.bibliotheca.common.network;
 
-import com.ewyboy.bibliotheca.Bibliotheca;
 import com.ewyboy.bibliotheca.common.network.messages.MessageBase;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+
+import static com.ewyboy.bibliotheca.util.BibLibResourceLocationHelper.prefix;
 
 public class MessageHandler {
 
@@ -12,7 +12,7 @@ public class MessageHandler {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder
-        .named(new ResourceLocation(Bibliotheca.ID, "network"))
+        .named(prefix("network"))
         .clientAcceptedVersions(PROTOCOL_VERSION :: equals)
         .serverAcceptedVersions(PROTOCOL_VERSION :: equals)
         .networkProtocolVersion(() ->  PROTOCOL_VERSION)

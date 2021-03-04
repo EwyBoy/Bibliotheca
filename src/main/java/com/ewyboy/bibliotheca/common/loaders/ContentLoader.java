@@ -6,9 +6,12 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -35,11 +38,7 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
     private final Map<ResourceLocation, Supplier<ContentType>> CONTENT_MAP = Maps.newHashMap();
 
     public static Set<ContentLoader<?>> getLoaders() {
-        return ImmutableSet.of(
-                BlockLoader.INSTANCE,
-                ItemLoader.INSTANCE,
-                TileLoader.INSTANCE
-        );
+        return ImmutableSet.of(BlockLoader.INSTANCE, ItemLoader.INSTANCE, TileLoader.INSTANCE);
     }
 
     public static void add(BibItemGroup itemGroup) {
@@ -52,34 +51,54 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
 
     public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister) {
         ModLogger.info("Registering content for " + modID);
-        if (contentGroup == null) {
-            CONTENT_GROUP = ItemGroup.MISC;
-        } else {
-            CONTENT_GROUP = contentGroup;
-        }
-        if (blockRegister != null) {
+
+        CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
+
+        if(blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
         }
-        if (itemRegister != null) {
+        if(itemRegister != null) {
             ItemLoader.INSTANCE.register(itemRegister);
         }
-        if (tileRegister != null) {
+        if(tileRegister != null) {
             TileLoader.INSTANCE.register(tileRegister);
         }
+
+    }
+
+
+    public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister, Class<?> fluidRegister) {
+        ModLogger.info("Registering content for " + modID);
+
+        CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
+
+        if(blockRegister != null) {
+            BlockLoader.INSTANCE.register(blockRegister);
+        }
+        if(itemRegister != null) {
+            ItemLoader.INSTANCE.register(itemRegister);
+        }
+        if(tileRegister != null) {
+            TileLoader.INSTANCE.register(tileRegister);
+        }
+        if(fluidRegister != null) {
+            FluidLoader.INSTANCE.register(fluidRegister);
+        }
+
     }
 
     protected void register(Class<?> contentRegister) {
         try {
             Class<ContentType> superType = registry.getRegistrySuperType();
-            for (Field field : contentRegister.getDeclaredFields()) {
+            for(Field field : contentRegister.getDeclaredFields()) {
                 Object obj = field.get(null);
                 String fieldName = field.getName().toLowerCase();
 
-                if (superType.isInstance(obj)) {
+                if(superType.isInstance(obj)) {
                     onRegister(fieldName, superType.cast(obj));
                 }
             }
-        } catch (IllegalAccessException e) {
+        } catch(IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -92,6 +111,7 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         return REGISTERS.computeIfAbsent(modID, id -> {
             DeferredRegister<ContentType> register = DeferredRegister.create(registry, id);
             register.register(FMLJavaModLoadingContext.get().getModEventBus());
+
             return register;
         });
     }
@@ -108,14 +128,20 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         return ModLoadingContext.get().getActiveContainer().getModInfo().getModId();
     }
 
-    public interface IHasNoGroup {
-    }
+    public interface IHasNoGroup {}
 
     public interface IHasCustomGroup {
         ItemGroup getCustomItemGroup();
     }
 
+    public interface IHasNoBlockItem {}
+
     public interface IHasCustomBlockItem {
         BlockItem getCustomBlockItem();
     }
+
+    public interface IHasCustomNameExtension {
+        String getCustomNameExtension();
+    }
+
 }

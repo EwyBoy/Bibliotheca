@@ -29,33 +29,43 @@ public class BlockLoader extends ContentLoader<Block> {
         ModLogger.info("[BLOCK]: {} has been registered by Bibliotheca for {}", name, activeModName());
 
         // Handle Block Items
-        BlockItem item;
-        if (block instanceof IHasCustomBlockItem) {
-            item = ((IHasCustomBlockItem) block).getCustomBlockItem();
+        BlockItem blockItem;
+
+        if(block instanceof IHasNoBlockItem) {
+            return;
+        }
+
+        Item.Properties properties = new Item.Properties();
+
+        if(block instanceof IHasCustomBlockItem) {
+            blockItem = ((IHasCustomBlockItem) block).getCustomBlockItem();
         } else {
-            Item.Properties properties = new Item.Properties();
-            // Add custom Item Groups
-            if (block instanceof IHasCustomGroup) {
+            if(block instanceof IHasCustomGroup) {
                 properties.group(((IHasCustomGroup) block).getCustomItemGroup());
-            } else if (!(block instanceof IHasNoGroup)) {
+            } else if(!(block instanceof IHasNoGroup)) {
                 properties.group(ContentLoader.CONTENT_GROUP);
             }
-            item = new BaseBlockItem(block, properties);
+            blockItem = new BaseBlockItem(block, properties);
         }
-        ItemLoader.INSTANCE.onRegister(name, item);
+
+        if (block instanceof IHasCustomNameExtension) {
+            name = name + ((IHasCustomNameExtension) block).getCustomNameExtension();
+        }
+
+        ItemLoader.INSTANCE.onRegister(name, blockItem);
     }
 
     @Override
     public void genData(DataGenerator dataGenerator, ExistingFileHelper existingFileHelper) {
         // Add Language DataGen
-        for (Supplier<Block> sup : getContentMap().values()) {
+        for(Supplier<Block> sup : getContentMap().values()) {
 
             Block block = sup.get();
             ResourceLocation name = block.getRegistryName();
             assert name != null;
 
             String translation;
-            if (block instanceof IFancyTranslation) {
+            if(block instanceof IFancyTranslation) {
                 translation = ((IFancyTranslation) block).englishTranslation();
             } else {
                 translation = BibLanguageProvider.getEnglishTranslation(name.getPath());
@@ -64,8 +74,9 @@ public class BlockLoader extends ContentLoader<Block> {
             BibLanguageProvider.get(dataGenerator, name.getNamespace(), "en_us").add(block, translation);
         }
 
-        for (BibItemGroup group : groups) {
+        for(BibItemGroup group : groups) {
             BibLanguageProvider.get(dataGenerator, group.getModid(), "en_us").add("itemGroup." + group.getPath(), group.englishTranslation());
         }
     }
+
 }
