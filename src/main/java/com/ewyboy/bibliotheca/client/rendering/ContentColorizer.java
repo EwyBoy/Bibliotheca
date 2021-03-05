@@ -2,7 +2,6 @@ package com.ewyboy.bibliotheca.client.rendering;
 
 import com.ewyboy.bibliotheca.client.interfaces.IBlockColorizer;
 import com.ewyboy.bibliotheca.common.loaders.BlockLoader;
-import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -16,10 +15,10 @@ public class ContentColorizer {
     public static final BlockColors blockColors = Minecraft.getInstance().getBlockColors();
 
     public static void registerColors() {
-        BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier:: get).forEach(block -> {
-            if (block instanceof IBlockColorizer) {
+        BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).forEach(block -> {
+            if(block instanceof IBlockColorizer) {
                 blockColors.register((IBlockColorizer) block, ((IBlockColorizer) block).blockToColor());
-                if (((IBlockColorizer) block).isItemBlockColored()) {
+                if(((IBlockColorizer) block).isItemBlockColored()) {
                     itemColors.register((IItemColor) block, ((IBlockColorizer) block).itemToColor());
                 }
             }
