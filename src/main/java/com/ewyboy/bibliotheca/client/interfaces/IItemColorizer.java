@@ -9,5 +9,5 @@ public interface IItemColorizer extends IItemColor{
     Item itemToColor();
 
     @Override
-    int getColor(ItemStack itemStack, int i);
+    int getColor(ItemStack itemStack, int tint);
 }

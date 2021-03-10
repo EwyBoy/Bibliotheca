@@ -1,9 +1,7 @@
 package com.ewyboy.bibliotheca;
 
-
 import com.ewyboy.bibliotheca.client.BibModelLoader;
 import com.ewyboy.bibliotheca.common.event.EventHandler;
-import com.ewyboy.bibliotheca.data.loot.LootConditions;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -22,7 +20,8 @@ public class Bibliotheca {
     public Bibliotheca() {
         EventHandler.MOD.register(this :: onCommonSetup);
         EventHandler.MOD.register(this :: onClientSetup);
-        LootConditions.init();
+
+        //LootConditions.init();
 
         DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(BibModelLoader :: initRenderTypes);
@@ -32,11 +31,11 @@ public class Bibliotheca {
     }
 
     private void onCommonSetup(final FMLCommonSetupEvent event) {
-        // NO-OP
+
     }
 
     private void onClientSetup(final FMLClientSetupEvent event) {
-        //event.enqueueWork(BibModelLoader :: initSpecialRenders);
+
     }
 
 }

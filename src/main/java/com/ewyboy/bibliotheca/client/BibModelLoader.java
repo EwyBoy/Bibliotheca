@@ -67,14 +67,6 @@ public class BibModelLoader {
         });
     }
 
-    /*@SubscribeEvent
-    public static void onClientStartupEvent(FMLClientSetupEvent event) {
-        BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).filter(block -> block instanceof IHasRenderType).forEach(block -> {
-            RenderTypeLookup.setRenderLayer(block, ((IHasRenderType) block).getRenderType());
-            ModLogger.info("[RENDER-TYPE] Loaded in special render type: "+ ((IHasRenderType) block).getRenderType() + " for " + block.getRegistryName());
-        });
-    }*/
-
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void onModelBakeEvent(ModelBakeEvent event) {
