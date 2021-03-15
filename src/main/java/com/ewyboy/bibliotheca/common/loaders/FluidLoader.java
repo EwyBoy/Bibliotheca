@@ -2,11 +2,7 @@ package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.common.content.block.BaseFluidBlock;
 import com.ewyboy.bibliotheca.util.ModLogger;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
@@ -32,12 +28,17 @@ public class FluidLoader extends ContentLoader<Fluid> {
     protected void onRegister(String name, Fluid fluid) {
 
         if (fluid.isSource(fluid.getDefaultState())) {
-            bucketItem = new BucketItem(
-                    () -> fluid, new Item.Properties()
-                    .containerItem(Items.BUCKET)
-                    .maxStackSize(1)
-                    .group(ContentLoader.CONTENT_GROUP)
-            );
+
+            if (fluid instanceof IHasCustomBucket) {
+                bucketItem = ((IHasCustomBucket) fluid).getCustomBucketItem();
+            } else {
+                bucketItem = new BucketItem(
+                        () -> fluid, new Item.Properties()
+                        .containerItem(Items.BUCKET)
+                        .maxStackSize(1)
+                        .group(ContentLoader.CONTENT_GROUP)
+                );
+            }
 
             ItemLoader.INSTANCE.onRegister(name + "bucket", bucketItem);
 

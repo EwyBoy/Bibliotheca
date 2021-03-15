@@ -7,11 +7,9 @@ import com.google.common.collect.Maps;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -142,6 +140,10 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
 
     public interface IHasCustomNameExtension {
         String getCustomNameExtension();
+    }
+
+    public interface IHasCustomBucket {
+        BucketItem getCustomBucketItem();
     }
 
 }
