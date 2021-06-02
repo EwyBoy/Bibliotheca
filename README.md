@@ -1,4 +1,6 @@
 # Info:
+![image](https://user-images.githubusercontent.com/5883716/120504846-c3becd80-c3c4-11eb-85fe-29dfee8d857d.png)
+
 Bibliotheca is an open-source library mod build for Minecraft Forge. The library comes with a easy to use, automated block / item / tile registering system that allows you to add new content with just one simple line of code.
 
 # Developers
