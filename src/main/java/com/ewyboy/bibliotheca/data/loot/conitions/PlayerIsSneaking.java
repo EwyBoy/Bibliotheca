@@ -38,6 +38,11 @@ public class PlayerIsSneaking implements ILootCondition {
         return () -> INSTANCE;
     }
 
+    @Override
+    public LootConditionType getConditionType() {
+        return null;
+    }
+
     public static class Serializer implements ILootSerializer<PlayerIsSneaking> {
         
         public void serialize(JsonObject object, PlayerIsSneaking playerIsSneaking, JsonSerializationContext ctx) {}

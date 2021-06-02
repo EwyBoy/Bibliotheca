@@ -4,14 +4,12 @@ license="MIT"
 issueTrackerURL="https://github.com/EwyBoy/bibliotheca/issues"
 
 [[mods]]
-modId="bibliotheca"
-displayName="Bibliotheca"
-version="${file.jarVersion}"
-authors="Ewy"
-credits="Credits to LuHiGi for helping me with tons of stuff"
-description='''
-Open-source library mod to make my life a bit easier cause I am lazy.
-'''
+    modId="bibliotheca"
+    displayName="Bibliotheca"
+    version="${file.jarVersion}"
+    authors="Ewy"
+    credits="Credits to LuHiGi for helping me with tons of stuff"
+    description="Open-source library mod to make my life a bit easier cause I am lazy."
 
 [[dependencies.bibliotheca]]
     modId="forge"

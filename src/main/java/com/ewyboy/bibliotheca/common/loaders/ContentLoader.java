@@ -47,18 +47,33 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         return CONTENT_MAP;
     }
 
+    public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister) {
+        ModLogger.info("Registering content for " + modID);
+
+        CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
+
+        if (blockRegister != null) {
+            BlockLoader.INSTANCE.register(blockRegister);
+        }
+
+        if (itemRegister != null) {
+            ItemLoader.INSTANCE.register(itemRegister);
+        }
+
+    }
+
     public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister) {
         ModLogger.info("Registering content for " + modID);
 
         CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
 
-        if(blockRegister != null) {
+        if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
         }
-        if(itemRegister != null) {
+        if (itemRegister != null) {
             ItemLoader.INSTANCE.register(itemRegister);
         }
-        if(tileRegister != null) {
+        if (tileRegister != null) {
             TileLoader.INSTANCE.register(tileRegister);
         }
 
@@ -70,16 +85,16 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
 
         CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
 
-        if(blockRegister != null) {
+        if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
         }
-        if(itemRegister != null) {
+        if (itemRegister != null) {
             ItemLoader.INSTANCE.register(itemRegister);
         }
-        if(tileRegister != null) {
+        if (tileRegister != null) {
             TileLoader.INSTANCE.register(tileRegister);
         }
-        if(fluidRegister != null) {
+        if (fluidRegister != null) {
             FluidLoader.INSTANCE.register(fluidRegister);
         }
 
@@ -88,15 +103,15 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
     protected void register(Class<?> contentRegister) {
         try {
             Class<ContentType> superType = registry.getRegistrySuperType();
-            for(Field field : contentRegister.getDeclaredFields()) {
+            for (Field field : contentRegister.getDeclaredFields()) {
                 Object obj = field.get(null);
                 String fieldName = field.getName().toLowerCase();
 
-                if(superType.isInstance(obj)) {
+                if (superType.isInstance(obj)) {
                     onRegister(fieldName, superType.cast(obj));
                 }
             }
-        } catch(IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -126,13 +141,15 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         return ModLoadingContext.get().getActiveContainer().getModInfo().getModId();
     }
 
-    public interface IHasNoGroup {}
+    public interface IHasNoGroup {
+    }
 
     public interface IHasCustomGroup {
         ItemGroup getCustomItemGroup();
     }
 
-    public interface IHasNoBlockItem {}
+    public interface IHasNoBlockItem {
+    }
 
     public interface IHasCustomBlockItem {
         BlockItem getCustomBlockItem();
