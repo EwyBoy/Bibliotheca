@@ -13,7 +13,7 @@
 * Added automated security scan of jar
 
 #### v1.16.5 - 1.5.2  
-* Fixed #13 Fixes: #13 Loot Condition Error - submitted by papaworld
+* Fixed #13 Loot Condition Error - submitted by papaworld
 
 #### v1.16.5 - 1.5.1  
 * Fixed #12 urgent dedicated server crash - submitted by twoworlds
