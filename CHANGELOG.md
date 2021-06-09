@@ -1,3 +1,31 @@
+#### **v1.16.5 - 1.6.0**
+* Fully implemented dynamic coloring of blocks and items
+* Cleaned up everything after trying to hack this feature together over the last 7 builds
+
+#### **v1.16.5 - 1.5.11**
+* Build 1.5.10 broke CurseMaven
+
+#### **v1.16.5 - 1.5.10**
+* Removed color ContentColorizer events
+* Replaced with direct colorization
+
+#### **v1.16.5 - 1.5.9**
+* Activate ContentColorizer
+* More debugging tools
+
+#### **v1.16.5 - 1.5.8**
+* Fixes null pointer produced by ColorLoader
+* ColorLoader registers can now be set to null
+
+#### **v1.16.5 - 1.5.7**
+* Rewrote content colorization system to not crash servers (Maybe?)
+
+#### **v1.16.5 - 1.5.6**
+* Making more changes to dynamic block / item coloring to fix for dedicated servers
+
+#### **v1.16.5 - 1.5.5**
+* Making changes to dynamic block / item coloring
+
 #### **v1.16.5 - 1.5.4**  
 * Updated gradle
 * CurseGradle automated uploads to CF
