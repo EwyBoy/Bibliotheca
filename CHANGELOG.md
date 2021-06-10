@@ -1,3 +1,6 @@
+#### **v1.16.5 - 1.6.2**
+* Build 1.6.1 broke CurseMaven again
+
 #### **v1.16.5 - 1.6.1**
 * Color values now printed in hexadecimal
 
