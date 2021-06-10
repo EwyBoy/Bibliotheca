@@ -1,3 +1,6 @@
+#### **v1.16.5 - 1.6.1**
+* Color values now printed in hexadecimal
+
 #### **v1.16.5 - 1.6.0**
 * Fully implemented dynamic coloring of blocks and items
 * Cleaned up everything after trying to hack this feature together over the last 7 builds

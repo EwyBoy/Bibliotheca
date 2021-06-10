@@ -48,7 +48,7 @@ public class ColorLoader {
         COLORED_BLOCKS.put(name, coloredBlock);
         BlockColors blockColors = Minecraft.getInstance().getBlockColors();
         blockColors.register(coloredBlock, ((IBlockColorizer) coloredBlock).blockToColor());
-        ModLogger.info("[BLOCK-COLOR]: {} :: {} has been registered by Bibliotheca for {}", coloredBlock.getColorIndex(), name, modID);
+        ModLogger.info("[BLOCK-COLOR]: {} :: {} has been registered by Bibliotheca for {}", Integer.toHexString(coloredBlock.getColorIndex()), name, modID);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -80,7 +80,7 @@ public class ColorLoader {
         };
 
         itemColors.register(getColorFromBlock, coloredItem.itemToColor());
-        ModLogger.info("[ITEM-COLOR]: {} :: {} has been registered by Bibliotheca for {}", coloredItem.getColorIndex(), name, modID);
+        ModLogger.info("[ITEM-COLOR]: {} :: {} has been registered by Bibliotheca for {}", Integer.toHexString(coloredItem.getColorIndex()), name, modID);
     }
 
 }
