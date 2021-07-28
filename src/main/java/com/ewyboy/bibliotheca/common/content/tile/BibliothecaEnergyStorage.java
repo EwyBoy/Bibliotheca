@@ -1,6 +1,6 @@
 package com.ewyboy.bibliotheca.common.content.tile;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class BibliothecaEnergyStorage extends EnergyStorage {
@@ -27,8 +27,8 @@ public class BibliothecaEnergyStorage extends EnergyStorage {
         super(capacity, maxReceive, maxExtract, energy);
     }
 
-    public void save(CompoundNBT compound) {
-        CompoundNBT myInfo = new CompoundNBT();
+    public void save(CompoundTag compound) {
+        CompoundTag myInfo = new CompoundTag();
         myInfo.putInt(NBT_KEY_CAPACITY, capacity);
         myInfo.putInt(NBT_KEY_MAX_RECEIVE, maxReceive);
         myInfo.putInt(NBT_KEY_MAX_EXTRACT, maxExtract);
@@ -37,9 +37,9 @@ public class BibliothecaEnergyStorage extends EnergyStorage {
     }
 
 
-    public void load(CompoundNBT compound) {
+    public void load(CompoundTag compound) {
         if (!compound.contains(NBT_KEY_ENERGY_INFO)) return;
-        CompoundNBT myInfo = compound.getCompound(NBT_KEY_ENERGY_INFO);
+        CompoundTag myInfo = compound.getCompound(NBT_KEY_ENERGY_INFO);
         myInfo.putInt(NBT_KEY_CAPACITY, capacity);
         myInfo.putInt(NBT_KEY_MAX_RECEIVE, maxReceive);
         myInfo.putInt(NBT_KEY_MAX_EXTRACT, maxExtract);

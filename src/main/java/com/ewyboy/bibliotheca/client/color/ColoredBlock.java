@@ -1,10 +1,10 @@
-package com.ewyboy.bibliotheca.client.color;
+package com.ewyboy.biblibtest.client.color;
 
-import com.ewyboy.bibliotheca.client.interfaces.IBlockColorizer;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockDisplayReader;
+import com.ewyboy.biblibtest.client.interfaces.IBlockColorizer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockAndTintGetter;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +32,7 @@ public class ColoredBlock implements IBlockColorizer {
     }
 
     @Override
-    public int getColor(BlockState blockState, @Nullable IBlockDisplayReader iBlockDisplayReader, @Nullable BlockPos blockPos, int tint) {
+    public int getColor(BlockState blockState, @Nullable BlockAndTintGetter iBlockDisplayReader, @Nullable BlockPos blockPos, int tint) {
         return getColorIndex();
     }
 }

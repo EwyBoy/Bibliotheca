@@ -1,6 +1,6 @@
 package com.ewyboy.bibliotheca.common.content.block;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 
 public class BaseBlock extends Block {
 

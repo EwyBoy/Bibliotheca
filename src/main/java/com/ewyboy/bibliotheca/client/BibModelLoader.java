@@ -7,12 +7,12 @@ import com.ewyboy.bibliotheca.client.interfaces.IHasSpecialRenderer;
 import com.ewyboy.bibliotheca.client.interfaces.INeedTexture;
 import com.ewyboy.bibliotheca.common.loaders.BlockLoader;
 import com.ewyboy.bibliotheca.util.ModLogger;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.model.ModelRotation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -62,7 +62,7 @@ public class BibModelLoader {
     @OnlyIn(Dist.CLIENT)
     public static void initRenderTypes(FMLClientSetupEvent event) {
         BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).filter(block -> block instanceof IHasRenderType).forEach(block -> {
-            RenderTypeLookup.setRenderLayer(block, ((IHasRenderType) block).getRenderType());
+            ItemBlockRenderTypes.setRenderLayer(block, ((IHasRenderType) block).getRenderType());
             ModLogger.info("[RENDER-TYPE] Loaded in special render type: "+ ((IHasRenderType) block).getRenderType() + " for " + block.getRegistryName());
         });
     }
@@ -73,9 +73,9 @@ public class BibModelLoader {
         BlockLoader.INSTANCE.getContentMap().values().stream().map(Supplier :: get).filter(block -> block instanceof IHasOBJModel).forEach(block -> {
             enableResourceDomain(block);
             try {
-                IUnbakedModel unbakedModel = event.getModelLoader().getModelOrMissing(((IHasOBJModel) block).getOBJModelLocation());
+                UnbakedModel unbakedModel = event.getModelLoader().getModelOrMissing(((IHasOBJModel) block).getOBJModelLocation());
                 if(unbakedModel instanceof OBJModel) {
-                    IBakedModel bakedModel = ((OBJModel) unbakedModel).bake((IModelConfiguration) event.getModelManager(), event.getModelLoader(), ModelLoader.defaultTextureGetter(), ModelRotation.X0_Y0, event.getModelManager().getModel(((OBJModel) unbakedModel).modelLocation).getOverrides(), ((IHasOBJModel) block).getOBJModelLocation());
+                    BakedModel bakedModel = ((OBJModel) unbakedModel).bake((IModelConfiguration) event.getModelManager(), event.getModelLoader(), ModelLoader.defaultTextureGetter(), BlockModelRotation.X0_Y0, event.getModelManager().getModel(((OBJModel) unbakedModel).modelLocation).getOverrides(), ((IHasOBJModel) block).getOBJModelLocation());
                     if(((IHasOBJModel) block).shouldRenderBlock()) {
                         event.getModelRegistry().put(new ModelResourceLocation(Objects.requireNonNull(block.getRegistryName()), ""), bakedModel);
                         ModLogger.info("[MODEL] Loaded in OBJ block model for " + block.getRegistryName());

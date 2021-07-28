@@ -3,9 +3,9 @@ package com.ewyboy.bibliotheca.common.content;
 import com.ewyboy.bibliotheca.common.datagenerator.BibLanguageProvider;
 import com.ewyboy.bibliotheca.common.datagenerator.IFancyTranslation;
 import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 
-public abstract class BibItemGroup extends ItemGroup implements IFancyTranslation {
+public abstract class BibItemGroup extends CreativeModeTab implements IFancyTranslation {
 
     private final String modid;
     private final String name;

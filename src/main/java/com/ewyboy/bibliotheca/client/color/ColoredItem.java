@@ -1,8 +1,8 @@
-package com.ewyboy.bibliotheca.client.color;
+package com.ewyboy.biblibtest.client.color;
 
-import com.ewyboy.bibliotheca.client.interfaces.IItemColorizer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import com.ewyboy.biblibtest.client.interfaces.IItemColorizer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class ColoredItem implements IItemColorizer {
 

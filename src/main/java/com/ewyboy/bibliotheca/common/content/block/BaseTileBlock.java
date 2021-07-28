@@ -1,39 +1,38 @@
 package com.ewyboy.bibliotheca.common.content.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public abstract class BaseTileBlock<T extends TileEntity> extends BaseBlock {
+public abstract class BaseTileBlock<T extends BlockEntity> extends BaseBlock implements EntityBlock {
 
-    protected abstract Class<T> getTileClass();
+    protected abstract BlockEntityType.BlockEntitySupplier<T> getTileSupplier();
 
     public BaseTileBlock(Properties properties) {
         super(properties);
     }
 
-    protected T getTileEntity(World world, BlockPos pos) {
-        return (T) world.getTileEntity(pos);
+    protected T getTileEntity(Level world, BlockPos pos) {
+        return (T) world.getBlockEntity(pos);
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return getTileSupplier().create(blockPos, blockState);
+        /*
         try {
             return getTileClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return null;
-    }
 
-    @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
+         */
     }
-
 }

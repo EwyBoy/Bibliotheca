@@ -1,15 +1,15 @@
 package com.ewyboy.bibliotheca.common.network.messages;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 public class MessageBase {
 
-    public static void encode(MessageBase pkt, PacketBuffer buffer) {}
+    public static void encode(MessageBase pkt, FriendlyByteBuf buffer) {}
 
-    public static MessageBase decode(PacketBuffer buffer) {
+    public static MessageBase decode(FriendlyByteBuf buffer) {
         return new MessageBase();
     }
 

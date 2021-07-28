@@ -1,6 +1,6 @@
 package com.ewyboy.bibliotheca.client.interfaces;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 

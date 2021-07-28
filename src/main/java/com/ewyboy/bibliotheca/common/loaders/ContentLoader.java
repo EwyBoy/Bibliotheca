@@ -5,10 +5,10 @@ import com.ewyboy.bibliotheca.util.ModLogger;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<ContentType>> {
 
     protected static Set<BibItemGroup> groups = new HashSet<>();
-    public static ItemGroup CONTENT_GROUP;
+    public static CreativeModeTab CONTENT_GROUP;
 
     ContentLoader(IForgeRegistry<ContentType> registry) {
         this.registry = registry;
@@ -47,10 +47,10 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         return CONTENT_MAP;
     }
 
-    public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister) {
+    public static void init(String modID, CreativeModeTab contentGroup, Class<?> blockRegister, Class<?> itemRegister) {
         ModLogger.info("Registering content for " + modID);
 
-        CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
+        CONTENT_GROUP = contentGroup == null ? CreativeModeTab.TAB_MISC : contentGroup;
 
         if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
@@ -62,10 +62,10 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
 
     }
 
-    public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister) {
+    public static void init(String modID, CreativeModeTab contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister) {
         ModLogger.info("Registering content for " + modID);
 
-        CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
+        CONTENT_GROUP = contentGroup == null ? CreativeModeTab.TAB_MISC : contentGroup;
 
         if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
@@ -80,10 +80,10 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
     }
 
 
-    public static void init(String modID, ItemGroup contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister, Class<?> fluidRegister) {
+    public static void init(String modID, CreativeModeTab contentGroup, Class<?> blockRegister, Class<?> itemRegister, Class<?> tileRegister, Class<?> fluidRegister) {
         ModLogger.info("Registering content for " + modID);
 
-        CONTENT_GROUP = contentGroup == null ? ItemGroup.MISC : contentGroup;
+        CONTENT_GROUP = contentGroup == null ? CreativeModeTab.TAB_MISC : contentGroup;
 
         if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
@@ -145,7 +145,7 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
     }
 
     public interface IHasCustomGroup {
-        ItemGroup getCustomItemGroup();
+        CreativeModeTab getCustomItemGroup();
     }
 
     public interface IHasNoBlockItem {

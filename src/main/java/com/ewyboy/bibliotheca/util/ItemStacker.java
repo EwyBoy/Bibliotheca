@@ -1,35 +1,35 @@
 package com.ewyboy.bibliotheca.util;
 
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class ItemStacker {
 
-    public static CompoundNBT prepareDataTag(ItemStack stack) {
-        if (!stack.hasTag()) stack.setTag(new CompoundNBT());
+    public static CompoundTag prepareDataTag(ItemStack stack) {
+        if (!stack.hasTag()) stack.setTag(new CompoundTag());
         return stack.getTag();
     }
 
-    public static void dropStackInWorld(World world, BlockPos pos, ItemStack stack) {
-        if (!world.isRemote) {
+    public static void dropStackInWorld(Level world, BlockPos pos, ItemStack stack) {
+        if (!world.isClientSide) {
             final float offset = 0.7F;
-            final double offX = world.rand.nextFloat() * offset + (1.0F - offset) * 0.5D;
-            final double offY = world.rand.nextFloat() * offset + (1.0F - offset) * 0.5D;
-            final double offZ = world.rand.nextFloat() * offset + (1.0F - offset) * 0.5D;
+            final double offX = world.random.nextFloat() * offset + (1.0F - offset) * 0.5D;
+            final double offY = world.random.nextFloat() * offset + (1.0F - offset) * 0.5D;
+            final double offZ = world.random.nextFloat() * offset + (1.0F - offset) * 0.5D;
             final ItemEntity itemEntity = new ItemEntity(world, pos.getX() + offX, pos.getY() + offY, pos.getZ() + offZ, stack);
-            itemEntity.setPickupDelay(10);
-            world.addEntity(itemEntity);
+            itemEntity.setPickUpDelay(10);
+            world.addFreshEntity(itemEntity);
         }
     }
 
-    public static ItemStack createStackFromTileEntity(TileEntity tile) {
+    public static ItemStack createStackFromTileEntity(BlockEntity tile) {
         final ItemStack stack = new ItemStack(tile.getBlockState().getBlock(), 1);
         prepareDataTag(stack);
-        final CompoundNBT tileTag = tile.write(new CompoundNBT());
+        final CompoundTag tileTag = tile.save(new CompoundTag());
         if (stack.getTag() != null) {
             stack.getTag().put("TileData", tileTag);
             stack.getTag().getCompound("TileData").remove("x");

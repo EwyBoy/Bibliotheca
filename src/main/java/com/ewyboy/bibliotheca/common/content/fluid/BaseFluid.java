@@ -1,8 +1,8 @@
 package com.ewyboy.bibliotheca.common.content.fluid;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.state.StateContainer;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 public abstract class BaseFluid extends ForgeFlowingFluid {
@@ -15,16 +15,16 @@ public abstract class BaseFluid extends ForgeFlowingFluid {
 
         public Flowing(Properties properties) {
             super(properties);
-            setDefaultState(getStateContainer().getBaseState().with(LEVEL_1_8, 7));
+            registerDefaultState(getStateDefinition().any().setValue(LEVEL, 7));
         }
 
-        protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
-            super.fillStateContainer(builder);
-            builder.add(LEVEL_1_8);
+        protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> builder) {
+            super.createFluidStateDefinition(builder);
+            builder.add(LEVEL);
         }
 
-        public int getLevel(FluidState state) {
-            return state.get(LEVEL_1_8);
+        public int getAmount(FluidState state) {
+            return state.getValue(LEVEL);
         }
 
         public boolean isSource(FluidState state) {
@@ -38,7 +38,7 @@ public abstract class BaseFluid extends ForgeFlowingFluid {
             super(properties);
         }
 
-        public int getLevel(FluidState state) {
+        public int getAmount(FluidState state) {
             return 8;
         }
 

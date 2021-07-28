@@ -1,12 +1,12 @@
 package com.ewyboy.bibliotheca.common.datagenerator;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.HashMap;
@@ -84,12 +84,12 @@ public class BibLanguageProvider extends LanguageProvider {
     }
 
     @Override
-    public void addEffect(Supplier<? extends Effect> key, String name) {
+    public void addEffect(Supplier<? extends MobEffect> key, String name) {
         super.addEffect(key, name);
     }
 
     @Override
-    public void add(Effect key, String name) {
+    public void add(MobEffect key, String name) {
         super.add(key, name);
     }
 

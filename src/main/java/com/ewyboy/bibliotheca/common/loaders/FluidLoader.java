@@ -2,14 +2,14 @@ package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.common.content.block.BaseFluidBlock;
 import com.ewyboy.bibliotheca.util.ModLogger;
-import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -22,21 +22,21 @@ public class FluidLoader extends ContentLoader<Fluid> {
     }
 
     public static BucketItem bucketItem;
-    public static FlowingFluidBlock fluidBlock;
+    public static LiquidBlock fluidBlock;
 
     @Override
     protected void onRegister(String name, Fluid fluid) {
 
-        if (fluid.isSource(fluid.getDefaultState())) {
+        if (fluid.isSource(fluid.defaultFluidState())) {
 
             if (fluid instanceof IHasCustomBucket) {
                 bucketItem = ((IHasCustomBucket) fluid).getCustomBucketItem();
             } else {
                 bucketItem = new BucketItem(
                         () -> fluid, new Item.Properties()
-                        .containerItem(Items.BUCKET)
-                        .maxStackSize(1)
-                        .group(ContentLoader.CONTENT_GROUP)
+                        .craftRemainder(Items.BUCKET)
+                        .stacksTo(1)
+                        .tab(ContentLoader.CONTENT_GROUP)
                 );
             }
 

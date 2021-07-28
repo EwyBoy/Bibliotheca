@@ -1,6 +1,10 @@
 package com.ewyboy.bibliotheca.common.content.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+
+import net.minecraft.world.item.crafting.RecipeType;
+
+import javax.annotation.Nullable;
 
 public class BaseFuelItem extends BaseItem {
 
@@ -12,7 +16,7 @@ public class BaseFuelItem extends BaseItem {
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack) {
+    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
         return burnTime;
     }
 }

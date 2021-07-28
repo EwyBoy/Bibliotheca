@@ -1,32 +1,32 @@
-package com.ewyboy.bibliotheca.common.network.dispatcher;
+package com.ewyboy.biblibtest.common.network.dispatcher;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 public final class VanillaMessageDispatcher {
 
-	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
-		World world = tile.getWorld();
-		if (world instanceof ServerWorld) {
-			SUpdateTileEntityPacket message = tile.getUpdatePacket();
-			BlockPos pos = tile.getPos();
-			for (PlayerEntity player : world.getPlayers()) {
-				if (player instanceof ServerPlayerEntity && pointDistancePlane(player.getPosX(), player.getPosZ(), pos.getX(), pos.getZ()) < 64) {
+	public static void dispatchTEToNearbyPlayers(BlockEntity tile) {
+		Level world = tile.getLevel();
+		if (world instanceof ServerLevel) {
+			ClientboundBlockEntityDataPacket message = tile.getUpdatePacket();
+			BlockPos pos = tile.getBlockPos();
+			for (Player player : world.players()) {
+				if (player instanceof ServerPlayer && pointDistancePlane(player.getX(), player.getZ(), pos.getX(), pos.getZ()) < 64) {
 					if (message != null) {
-						((ServerPlayerEntity) player).connection.sendPacket(message);
+						((ServerPlayer) player).connection.send(message);
 					}
 				}
 			}
 		}
 	}
 
-	public static void dispatchTEToNearbyPlayers(World world, BlockPos pos) {
-		TileEntity tile = world.getTileEntity(pos);
+	public static void dispatchTEToNearbyPlayers(Level world, BlockPos pos) {
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile != null) {
 			dispatchTEToNearbyPlayers(tile);
 		}

@@ -1,7 +1,7 @@
 package com.ewyboy.bibliotheca.util;
 
 import com.ewyboy.bibliotheca.Bibliotheca;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class BibLibResourceLocationHelper {
 

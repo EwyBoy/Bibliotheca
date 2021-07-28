@@ -4,8 +4,8 @@ import com.ewyboy.bibliotheca.common.datagenerator.BibLanguageProvider;
 import com.ewyboy.bibliotheca.common.datagenerator.IFancyTranslation;
 import com.ewyboy.bibliotheca.util.ModLogger;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 

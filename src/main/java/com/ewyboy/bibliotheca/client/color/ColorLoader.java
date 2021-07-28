@@ -2,12 +2,12 @@ package com.ewyboy.bibliotheca.client.color;
 
 import com.ewyboy.bibliotheca.client.interfaces.IBlockColorizer;
 import com.ewyboy.bibliotheca.util.ModLogger;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.BlockItem;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -74,8 +74,8 @@ public class ColorLoader {
         BlockColors blockColors = Minecraft.getInstance().getBlockColors();
         ItemColors itemColors = Minecraft.getInstance().getItemColors();
 
-        IItemColor getColorFromBlock = (stack, tintIndex) -> {
-            BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+        ItemColor getColorFromBlock = (stack, tintIndex) -> {
+            BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
             return blockColors.getColor(state, null, null, tintIndex);
         };
 

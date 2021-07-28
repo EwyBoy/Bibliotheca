@@ -1,13 +1,13 @@
 package com.ewyboy.bibliotheca.common.world;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class WorldGenUtilities {
 
-    public static int getBlockFromAbove(World world, int x, int z, Block targetBlock, int startingPosY) {
+    public static int getBlockFromAbove(Level world, int x, int z, Block targetBlock, int startingPosY) {
         int y = startingPosY;
         boolean foundBlock = false;
         while (!foundBlock && y-- >= 0) {
@@ -17,7 +17,7 @@ public class WorldGenUtilities {
         return y;
     }
 
-    public static int getGroundFromAbove(World world, int x, int z) {
+    public static int getGroundFromAbove(Level world, int x, int z) {
         int y = 255;
         boolean foundGround = false;
         while(!foundGround && y-- >= 0) {

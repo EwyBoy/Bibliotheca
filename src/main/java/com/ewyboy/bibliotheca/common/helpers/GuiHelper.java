@@ -1,10 +1,11 @@
 package com.ewyboy.bibliotheca.common.helpers;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * Created by EwyBoy
@@ -21,20 +22,20 @@ public class GuiHelper {
     private static final Minecraft MINECRAFT = Minecraft.getInstance();
 
     public static void renderSlots(int x, int y) {
-        MINECRAFT.textureManager.bindTexture(slotTexture);
+        MINECRAFT.textureManager.bindForSetup(slotTexture);
 
         int realSize = 18;
         float u = 1;
 
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder worldRenderer = tessellator.getBuffer();
+        Tesselator tessellator = Tesselator.getInstance();
+        BufferBuilder worldRenderer = tessellator.getBuilder();
 
-        worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldRenderer.pos(x, y + realSize, 0).tex(0, u).endVertex();
-        worldRenderer.pos(x + realSize, y + realSize, 0).tex(u, u).endVertex();
-        worldRenderer.pos(x + realSize, y, 0).tex(u, 0).endVertex();
-        worldRenderer.pos(x, y, 0).tex(0, 0).endVertex();
-        tessellator.draw();
+        worldRenderer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        worldRenderer.vertex(x, y + realSize, 0).uv(0, u).endVertex();
+        worldRenderer.vertex(x + realSize, y + realSize, 0).uv(u, u).endVertex();
+        worldRenderer.vertex(x + realSize, y, 0).uv(u, 0).endVertex();
+        worldRenderer.vertex(x, y, 0).uv(0, 0).endVertex();
+        tessellator.end();
     }
 
     public static void renderGuiBackground(int x, int y, int width, int height, ResourceLocation texture) {
@@ -42,7 +43,7 @@ public class GuiHelper {
     }
 
     public static void renderBackground(int x, int y, int width, int height, ResourceLocation texture) {
-        MINECRAFT.textureManager.bindTexture(texture);
+        MINECRAFT.textureManager.bindForSetup(texture);
 
         int realWidth = (width) + 14;
         int realHeight = 15 + (height);
@@ -63,17 +64,17 @@ public class GuiHelper {
     }
 
     private static void renderPartBackground(int x, int y, int startX, int startY, int endX, int endY, int width, int height) {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder worldRenderer = tessellator.getBuffer();
-        worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        Tesselator tessellator = Tesselator.getInstance();
+        BufferBuilder worldRenderer = tessellator.getBuilder();
+        worldRenderer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
         double chestTextureSize = 15d;
-        worldRenderer.pos((double) x, (double) y + height, 0).tex(getEnd(chestTextureSize, startX), getEnd(chestTextureSize, endY)).endVertex();
-        worldRenderer.pos((double) x + width, (double) y + height, 0).tex(getEnd(chestTextureSize, endX), getEnd(chestTextureSize, endY)).endVertex();
-        worldRenderer.pos((double) x + width, (double) y + 0, 0).tex(getEnd(chestTextureSize, endX), getEnd(chestTextureSize, startY)).endVertex();
-        worldRenderer.pos((double) x, (double) y, 0).tex(getEnd(chestTextureSize, startX), getEnd(chestTextureSize, startY)).endVertex();
+        worldRenderer.vertex(x, (double) y + height, 0).uv(getEnd(chestTextureSize, startX), getEnd(chestTextureSize, endY)).endVertex();
+        worldRenderer.vertex((double) x + width, (double) y + height, 0).uv(getEnd(chestTextureSize, endX), getEnd(chestTextureSize, endY)).endVertex();
+        worldRenderer.vertex((double) x + width, (double) y + 0, 0).uv(getEnd(chestTextureSize, endX), getEnd(chestTextureSize, startY)).endVertex();
+        worldRenderer.vertex(x, y, 0).uv(getEnd(chestTextureSize, startX), getEnd(chestTextureSize, startY)).endVertex();
 
-        tessellator.draw();
+        tessellator.end();
     }
 
     private static float getEnd(double width, double other) {

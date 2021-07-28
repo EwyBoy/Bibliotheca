@@ -1,17 +1,17 @@
-package com.ewyboy.bibliotheca;
+package com.ewyboy.biblibtest;
 
 import com.ewyboy.bibliotheca.common.content.BibItemGroup;
 import com.ewyboy.bibliotheca.common.event.EventHandler;
 import com.ewyboy.bibliotheca.common.loaders.ContentLoader;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.tileentity.TileEntityType.Builder;
+import com.google.common.collect.Sets;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @Mod(BibliothecaTest.ID)
 public class BibliothecaTest {
@@ -29,22 +29,21 @@ public class BibliothecaTest {
     }
 
     public static final class Blocks {
-        public static final Block TEST_BLOCK = new TestBlock(AbstractBlock.Properties.create(Material.IRON));
-        public static final Block TEST_TILE_BLOCK = new TestTileBlock(AbstractBlock.Properties.create(Material.IRON));
+        public static final Block TEST_BLOCK = new TestBlock(BlockBehaviour.Properties.of(Material.BAMBOO));
     }
 
     public static final class Tiles {
-        public static final TileEntityType<TestTile> TEST_TILE_BLOCK = Builder.create(TestTile::new, Blocks.TEST_BLOCK).build(null);
+        public static final BlockEntityType<TestTile> TEST_TILE = new BlockEntityType<>(TestTile :: new, Sets.newHashSet(Blocks.TEST_BLOCK), null);
     }
 
     public static final class Items {
         public static final BibItemGroup BIB_GROUP = new BibItemGroup(ID, ID) {
             @Override
-            public ItemStack createIcon() {
+            public ItemStack makeIcon() {
                 return new ItemStack(TEST_ITEM);
             }
         };
 
-        public static final Item TEST_ITEM = new Item(new Item.Properties().group(BIB_GROUP));
+        public static final Item TEST_ITEM = new Item(new Item.Properties().tab(BIB_GROUP));
     }
 }

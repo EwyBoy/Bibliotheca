@@ -5,11 +5,11 @@ import com.ewyboy.bibliotheca.common.content.item.BaseBlockItem;
 import com.ewyboy.bibliotheca.common.datagenerator.BibLanguageProvider;
 import com.ewyboy.bibliotheca.common.datagenerator.IFancyTranslation;
 import com.ewyboy.bibliotheca.util.ModLogger;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -41,9 +41,9 @@ public class BlockLoader extends ContentLoader<Block> {
             blockItem = ((IHasCustomBlockItem) block).getCustomBlockItem();
         } else {
             if(block instanceof IHasCustomGroup) {
-                properties.group(((IHasCustomGroup) block).getCustomItemGroup());
+                properties.tab(((IHasCustomGroup) block).getCustomItemGroup());
             } else if(!(block instanceof IHasNoGroup)) {
-                properties.group(ContentLoader.CONTENT_GROUP);
+                properties.tab(CONTENT_GROUP);
             }
             blockItem = new BaseBlockItem(block, properties);
         }
@@ -75,7 +75,7 @@ public class BlockLoader extends ContentLoader<Block> {
         }
 
         for(BibItemGroup group : groups) {
-            BibLanguageProvider.get(dataGenerator, group.getModid(), "en_us").add("itemGroup." + group.getPath(), group.englishTranslation());
+            BibLanguageProvider.get(dataGenerator, group.getModid(), "en_us").add("itemGroup." + group.getRecipeFolderName(), group.englishTranslation());
         }
     }
 

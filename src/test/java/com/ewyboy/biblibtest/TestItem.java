@@ -1,4 +1,4 @@
-package com.ewyboy.bibliotheca;
+package com.ewyboy.biblibtest;
 
 import com.ewyboy.bibliotheca.common.content.item.BaseItem;
 

@@ -1,6 +1,6 @@
 package com.ewyboy.bibliotheca.common.content.item;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class BaseItem extends Item {
 

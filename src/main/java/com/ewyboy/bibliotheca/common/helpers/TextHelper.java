@@ -1,6 +1,6 @@
 package com.ewyboy.bibliotheca.common.helpers;
 
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 
 /**
  * Created by EwyBoy
@@ -8,7 +8,7 @@ import net.minecraft.client.resources.I18n;
 public class TextHelper {
 
     public static String lang(String modID, String key) {
-        return I18n.format(modID + "." + key);
+        return I18n.get(modID + "." + key);
     }
 
     /*

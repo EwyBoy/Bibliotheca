@@ -1,10 +1,10 @@
 package com.ewyboy.bibliotheca.client.interfaces;
 
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-public interface IItemColorizer extends IItemColor {
+public interface IItemColorizer extends ItemColor {
 
     Item itemToColor();
 

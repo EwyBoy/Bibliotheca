@@ -2,23 +2,23 @@ package com.ewyboy.bibliotheca.common.loaders;
 
 import com.ewyboy.bibliotheca.util.ModLogger;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class TileLoader extends ContentLoader<TileEntityType<?>> {
+public class TileLoader extends ContentLoader<BlockEntityType<?>> {
 
     public static final TileLoader INSTANCE = new TileLoader();
 
     private TileLoader() {
-        super(ForgeRegistries.TILE_ENTITIES);
+        super(ForgeRegistries.BLOCK_ENTITIES);
     }
 
     @Override
-    protected void onRegister(String name, TileEntityType<?> tileType) {
+    protected void onRegister(String name, BlockEntityType<?> tileType) {
         getContentMap().put(new ResourceLocation(activeModId(), name), getRegister().register(name, () -> tileType));
-        ModLogger.info("[TILE-ENTITY]: {} has been registered by Bibliotheca for {}", name, activeModName());
+        ModLogger.info("[BLOCK-ENTITY]: {} has been registered by Bibliotheca for {}", name, activeModName());
     }
 
     @Override
