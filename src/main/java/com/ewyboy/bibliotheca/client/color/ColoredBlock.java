@@ -1,6 +1,6 @@
-package com.ewyboy.biblibtest.client.color;
+package com.ewyboy.bibliotheca.client.color;
 
-import com.ewyboy.biblibtest.client.interfaces.IBlockColorizer;
+import com.ewyboy.bibliotheca.client.interfaces.IBlockColorizer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;

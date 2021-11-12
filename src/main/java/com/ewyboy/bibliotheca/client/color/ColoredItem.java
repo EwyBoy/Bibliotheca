@@ -1,6 +1,6 @@
-package com.ewyboy.biblibtest.client.color;
+package com.ewyboy.bibliotheca.client.color;
 
-import com.ewyboy.biblibtest.client.interfaces.IItemColorizer;
+import com.ewyboy.bibliotheca.client.interfaces.IItemColorizer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
