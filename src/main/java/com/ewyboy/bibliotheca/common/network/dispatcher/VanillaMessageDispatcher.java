@@ -1,4 +1,4 @@
-package com.ewyboy.biblibtest.common.network.dispatcher;
+package com.ewyboy.bibliotheca.common.network.dispatcher;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;

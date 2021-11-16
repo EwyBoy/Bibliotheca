@@ -28,7 +28,6 @@ public class BlockLoader extends ContentLoader<Block> {
         getContentMap().put(new ResourceLocation(activeModId(), name), getRegister().register(name, () -> block));
         ModLogger.info("[BLOCK]: {} has been registered by Bibliotheca for {}", name, activeModName());
 
-        // Handle Block Items
         BlockItem blockItem;
 
         if(block instanceof IHasNoBlockItem) {
@@ -43,7 +42,7 @@ public class BlockLoader extends ContentLoader<Block> {
             if(block instanceof IHasCustomGroup) {
                 properties.tab(((IHasCustomGroup) block).getCustomItemGroup());
             } else if(!(block instanceof IHasNoGroup)) {
-                properties.tab(CONTENT_GROUP);
+                properties.tab(ContentLoader.contentGroupMap.get(activeModId()));
             }
             blockItem = new BaseBlockItem(block, properties);
         }

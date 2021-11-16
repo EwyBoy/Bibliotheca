@@ -2,6 +2,7 @@ package com.ewyboy.bibliotheca.common.content.tile;
 
 import javax.annotation.Nonnull;
 
+import com.ewyboy.bibliotheca.common.network.dispatcher.VanillaMessageDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.nbt.CompoundTag;
@@ -35,7 +36,7 @@ public abstract class BaseBlockEntity extends BlockEntity {
     public void readSharedNBT(CompoundTag tag) {}
 
     public void sync() {
-        com.ewyboy.biblibtest.common.network.dispatcher.VanillaMessageDispatcher.dispatchTEToNearbyPlayers(this);
+        VanillaMessageDispatcher.dispatchTEToNearbyPlayers(this);
     }
 
     @Override

@@ -17,6 +17,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -46,11 +47,14 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
     public Map<ResourceLocation, Supplier<ContentType>> getContentMap() {
         return CONTENT_MAP;
     }
+    public static Map<String, CreativeModeTab> contentGroupMap = Maps.newHashMap();
+
 
     public static void init(String modID, CreativeModeTab contentGroup, Class<?> blockRegister, Class<?> itemRegister) {
         ModLogger.info("Registering content for " + modID);
 
         CONTENT_GROUP = contentGroup == null ? CreativeModeTab.TAB_MISC : contentGroup;
+        contentGroupMap.put(modID, CONTENT_GROUP);
 
         if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
@@ -66,6 +70,7 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         ModLogger.info("Registering content for " + modID);
 
         CONTENT_GROUP = contentGroup == null ? CreativeModeTab.TAB_MISC : contentGroup;
+        contentGroupMap.put(modID, CONTENT_GROUP);
 
         if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
@@ -84,6 +89,7 @@ public abstract class ContentLoader<ContentType extends IForgeRegistryEntry<Cont
         ModLogger.info("Registering content for " + modID);
 
         CONTENT_GROUP = contentGroup == null ? CreativeModeTab.TAB_MISC : contentGroup;
+        contentGroupMap.put(modID, CONTENT_GROUP);
 
         if (blockRegister != null) {
             BlockLoader.INSTANCE.register(blockRegister);
