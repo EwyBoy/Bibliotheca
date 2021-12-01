@@ -17,8 +17,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.IModelConfiguration;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -75,7 +75,7 @@ public class BibModelLoader {
             try {
                 UnbakedModel unbakedModel = event.getModelLoader().getModelOrMissing(((IHasOBJModel) block).getOBJModelLocation());
                 if(unbakedModel instanceof OBJModel) {
-                    BakedModel bakedModel = ((OBJModel) unbakedModel).bake((IModelConfiguration) event.getModelManager(), event.getModelLoader(), ModelLoader.defaultTextureGetter(), BlockModelRotation.X0_Y0, event.getModelManager().getModel(((OBJModel) unbakedModel).modelLocation).getOverrides(), ((IHasOBJModel) block).getOBJModelLocation());
+                    BakedModel bakedModel = ((OBJModel) unbakedModel).bake((IModelConfiguration) event.getModelManager(), event.getModelLoader(), ForgeModelBakery.defaultTextureGetter(), BlockModelRotation.X0_Y0, event.getModelManager().getModel(((OBJModel) unbakedModel).modelLocation).getOverrides(), ((IHasOBJModel) block).getOBJModelLocation());
                     if(((IHasOBJModel) block).shouldRenderBlock()) {
                         event.getModelRegistry().put(new ModelResourceLocation(Objects.requireNonNull(block.getRegistryName()), ""), bakedModel);
                         ModLogger.info("[MODEL] Loaded in OBJ block model for " + block.getRegistryName());

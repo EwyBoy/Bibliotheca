@@ -41,9 +41,7 @@ public abstract class BaseBlockEntity extends BlockEntity {
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        CompoundTag cmp = new CompoundTag();
-        writeSharedNBT(cmp);
-        return new ClientboundBlockEntityDataPacket(getBlockPos(), 0, cmp);
+       return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override

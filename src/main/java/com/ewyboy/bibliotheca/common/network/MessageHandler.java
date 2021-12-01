@@ -2,8 +2,8 @@ package com.ewyboy.bibliotheca.common.network;
 
 import com.ewyboy.bibliotheca.common.network.messages.MessageBase;
 import com.ewyboy.bibliotheca.util.BibLibResourceLocationHelper;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 public class MessageHandler {
 

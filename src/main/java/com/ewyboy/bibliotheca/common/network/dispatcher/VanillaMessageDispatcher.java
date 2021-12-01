@@ -13,7 +13,7 @@ public final class VanillaMessageDispatcher {
 	public static void dispatchTEToNearbyPlayers(BlockEntity tile) {
 		Level world = tile.getLevel();
 		if (world instanceof ServerLevel) {
-			ClientboundBlockEntityDataPacket message = tile.getUpdatePacket();
+			ClientboundBlockEntityDataPacket message = (ClientboundBlockEntityDataPacket) tile.getUpdatePacket();
 			BlockPos pos = tile.getBlockPos();
 			for (Player player : world.players()) {
 				if (player instanceof ServerPlayer && pointDistancePlane(player.getX(), player.getZ(), pos.getX(), pos.getZ()) < 64) {

@@ -25,14 +25,5 @@ public abstract class BaseTileBlock<T extends BlockEntity> extends BaseBlock imp
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return getTileSupplier().create(blockPos, blockState);
-        /*
-        try {
-            return getTileClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-         */
     }
 }

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)"
+loaderVersion="[38,)"
 license="MIT"
 issueTrackerURL="https://github.com/EwyBoy/bibliotheca/issues"
 
@@ -14,13 +14,13 @@ issueTrackerURL="https://github.com/EwyBoy/bibliotheca/issues"
 [[dependencies.bibliotheca]]
     modId="forge"
     mandatory=true
-    versionRange="[37.+,)"
+    versionRange="[38,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.bibliotheca]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.17.+,)"
+    versionRange="[1.18, 1.19)"
     ordering="NONE"
     side="BOTH"
