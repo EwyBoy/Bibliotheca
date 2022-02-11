@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import org.jetbrains.annotations.NotNull;
 
 @Mod(BibliothecaTest.ID)
 public class BibliothecaTest {
@@ -39,7 +40,7 @@ public class BibliothecaTest {
     public static final class Items {
         public static final BibItemGroup BIB_GROUP = new BibItemGroup(ID, ID) {
             @Override
-            public ItemStack makeIcon() {
+            public @NotNull ItemStack makeIcon() {
                 return new ItemStack(TEST_ITEM);
             }
         };

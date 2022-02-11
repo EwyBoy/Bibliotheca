@@ -21,13 +21,13 @@ public class Bibliotheca {
         EventHandler.MOD.register(this :: onCommonSetup);
         EventHandler.MOD.register(this :: onClientSetup);
 
-        //LootConditions.init();
-
-        DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> {
+        DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(BibModelLoader :: initRenderTypes);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(BibModelLoader :: initSpecialRenders);
             return null;
         });
+
+        //LootConditions.init();
     }
 
     private void onCommonSetup(final FMLCommonSetupEvent event) {

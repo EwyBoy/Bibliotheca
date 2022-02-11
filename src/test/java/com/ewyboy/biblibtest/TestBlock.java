@@ -1,9 +1,9 @@
 package com.ewyboy.biblibtest;
 
-import com.ewyboy.bibliotheca.common.content.block.BaseTileBlock;
+import com.ewyboy.bibliotheca.common.content.block.BaseBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class TestBlock extends BaseTileBlock<TestTile> {
+public class TestBlock extends BaseBlockEntity<TestTile> {
 
     @Override
     protected BlockEntityType.BlockEntitySupplier<TestTile> getTileSupplier() {

@@ -29,7 +29,7 @@ public class ItemStacker {
     public static ItemStack createStackFromTileEntity(BlockEntity tile) {
         final ItemStack stack = new ItemStack(tile.getBlockState().getBlock(), 1);
         prepareDataTag(stack);
-        final CompoundTag tileTag = tile.save(new CompoundTag());
+        final CompoundTag tileTag = tile.saveWithFullMetadata();
         if (stack.getTag() != null) {
             stack.getTag().put("TileData", tileTag);
             stack.getTag().getCompound("TileData").remove("x");

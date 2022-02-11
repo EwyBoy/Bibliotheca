@@ -103,7 +103,7 @@ curseforge {
         releaseType = "${RELEASE_TYPE}"
         addGameVersion "${LOADER}"
         addGameVersion "${JAVA_VERSION}"
-        addGameVersion '1.18'
+        addGameVersion '1.18.1'
         mainArtifact(jar) {
             displayName = "${MODNAME}-${MC_VERSION}-${VERSION}.jar"
         }

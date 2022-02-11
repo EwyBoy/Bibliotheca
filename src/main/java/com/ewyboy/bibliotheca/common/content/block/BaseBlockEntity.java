@@ -9,11 +9,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public abstract class BaseTileBlock<T extends BlockEntity> extends BaseBlock implements EntityBlock {
+public abstract class BaseBlockEntity<T extends BlockEntity> extends BaseBlock implements EntityBlock {
 
     protected abstract BlockEntityType.BlockEntitySupplier<T> getTileSupplier();
 
-    public BaseTileBlock(Properties properties) {
+    public BaseBlockEntity(Properties properties) {
         super(properties);
     }
 
